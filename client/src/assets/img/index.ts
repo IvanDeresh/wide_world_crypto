@@ -10,6 +10,7 @@ import vanguard from "./vanguard.jpg";
 import blackrock from "./blackrock.jpg";
 import interactive from "./interactive.jpg";
 import cryptoimg from "./cryptoimg.jpg";
+import bgprimary from "./bgprimary.png";
 import isometric from "./Technology Isometric Clean Data Illustration.jpg";
 export {
   trading212,
@@ -18,6 +19,7 @@ export {
   interactive,
   factory,
   cryptoimg,
+  bgprimary,
   ethereum,
   bitcoin,
   isometric,

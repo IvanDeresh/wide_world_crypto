@@ -21,3 +21,13 @@ export type CryptoCurrency = {
   twitterUrl: string;
   explorers: string[];
 };
+export interface INews {
+  date: Date;
+  title: string;
+  description: string;
+  image: string;
+  author: string;
+  category: string;
+  id: number;
+  tags: string[];
+}

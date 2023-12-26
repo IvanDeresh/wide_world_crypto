@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { CryptoCurrency } from "@/types";
-
+import { INews } from "@/types";
 export function fetchData({ url }: { url: string }) {
   const [coins, setCoins] = useState<CryptoCurrency[]>([]);
 
@@ -27,4 +27,24 @@ export function fetchData({ url }: { url: string }) {
   }, []);
 
   return coins;
+}
+export function fetchNews() {
+  const [news, setNews] = useState<INews[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios({
+          url: "http://localhost:3003/api/news",
+          method: "GET",
+        });
+        setNews(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return news;
 }

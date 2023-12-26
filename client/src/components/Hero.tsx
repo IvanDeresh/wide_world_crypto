@@ -67,14 +67,24 @@ const Hero = () => {
           {data.map((coin) => (
             <ul key={coin.id} className="">
               {visibleCoins.includes(coin.name) && (
-                <div className="w-[300px] justify-around bg-[#070d47] items-center flex rounded-3xl h-[200px] shadow-2xl shadow-white">
-                  <div>
-                    <Image src={coin.icon} alt="coin" width={80} height={80} />
-                  </div>
-                  <div>
+                <div className="w-[300px] justify-around p-5 bg-[#21296e] items-start  flex flex-col rounded-3xl h-[200px] shadow-2xl shadow-white">
+                  <div className="flex gap-5 items-center">
+                    <Image src={coin.icon} alt="coin" width={50} height={50} />
                     <li>{coin.name}</li>
+                  </div>
+
+                  <div>
                     <li className="text-blue-400 font-bold text-[20px]">
                       {coin.price.toFixed(2)} $
+                    </li>
+                    <li
+                      className={`${
+                        coin.priceChange1d > 0
+                          ? "text-green-400"
+                          : "text-red-400"
+                      }`}
+                    >
+                      {coin.priceChange1d} %
                     </li>
                   </div>
                 </div>

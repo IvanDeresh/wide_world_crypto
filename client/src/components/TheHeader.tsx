@@ -19,8 +19,9 @@ import {
   blackrock,
   cryptoimg,
   interactive,
+  bgprimary,
 } from "@/assets/img";
-import NewsToggle from "./NewsToggle";
+import NewsWindow from "./NewsWindow";
 const TheHeader = () => {
   const [isActive, setIsactive] = useState(false);
   const [isMarketVisible, setIsMarketVisible] = useState(false);
@@ -60,7 +61,7 @@ const TheHeader = () => {
         <ul className="flex max-2xl:hidden items-center justify-around w-[40%] font-montserrat text-[20px]">
           <button
             onMouseEnter={() => {
-              toggleMarket();
+              setIsMarketVisible(true);
               setIsBrokersVisible(false);
               setIsNewsVisible(false);
             }}
@@ -107,7 +108,7 @@ const TheHeader = () => {
           <button
             onMouseEnter={() => {
               setIsMarketVisible(false);
-              toggleBroker();
+              setIsBrokersVisible(true);
               setIsNewsVisible(false);
             }}
           >
@@ -209,7 +210,7 @@ const TheHeader = () => {
             href="/"
             onMouseEnter={() => {
               setIsMarketVisible(false);
-              toggleNews();
+              setIsNewsVisible(true);
               setIsBrokersVisible(false);
             }}
           >
@@ -217,10 +218,19 @@ const TheHeader = () => {
           </Link>
           {isNewsVisible && (
             <div
-              onMouseLeave={toggleNews}
-              className="absolute top-[80px] bg-white w-[400px] h-[400px] border-2 rounded-[20px]"
+              onMouseLeave={() => {
+                toggleNews();
+              }}
+              className="absolute top-[80px] left-[20px] bg-white w-[930px] h-[400px] border-2 rounded-[20px]"
             >
-              <NewsToggle />
+              <div className="absolute bottom-[-120px] flex items-center">
+                <NewsWindow />
+                <Image
+                  src={bgprimary}
+                  alt="bg"
+                  className="h-[390px] mb-[110px] rounded-2xl"
+                />
+              </div>
             </div>
           )}
           <button className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500">
