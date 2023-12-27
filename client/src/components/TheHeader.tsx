@@ -1,35 +1,27 @@
 "use client";
-import StarIcon from "@mui/icons-material/Star";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@/components/Button";
-import {
-  binance,
-  coinbase,
-  isometric,
-  tradingview,
-  whitebit,
-  trading212,
-  vanguard,
-  blackrock,
-  cryptoimg,
-  interactive,
-  bgprimary,
-} from "@/assets/img";
+import { isometric, cryptoimg, bgprimary } from "@/assets/img";
 import NewsWindow from "./NewsWindow";
+import MarketWindow from "./MarketWindow";
+import BrokersWindow from "./BrokersWindow";
+import SubscribeWindow from "./SubscribeWindow";
 const TheHeader = () => {
   const [isActive, setIsactive] = useState(false);
   const [isMarketVisible, setIsMarketVisible] = useState(false);
   const [isBrokersVisible, setIsBrokersVisible] = useState(false);
   const [isNewsVisible, setIsNewsVisible] = useState(false);
+  const [isTrialVisible, setIsTrialVisible] = useState(false);
 
   const toggleMarket = () => {
     setIsMarketVisible(!isMarketVisible);
+  };
+  const toggleTrial = () => {
+    setIsTrialVisible(!isTrialVisible);
   };
   const toggleBroker = () => {
     setIsBrokersVisible(!isBrokersVisible);
@@ -64,6 +56,7 @@ const TheHeader = () => {
               setIsMarketVisible(true);
               setIsBrokersVisible(false);
               setIsNewsVisible(false);
+              setIsTrialVisible(false);
             }}
           >
             Markets
@@ -73,30 +66,7 @@ const TheHeader = () => {
               onMouseLeave={toggleMarket}
               className="absolute bg-white flex items-center justify-between w-[700px] h-[400px] top-[80px] left-[20px] rounded-[20px]"
             >
-              <div className=" p-[50px]  gap-5 flex flex-col justify-center text-blue-300 font-bold">
-                <li className="flex gap-5 items-center">
-                  <Image width={60} src={binance} alt="binance" />
-                  <Link href="https://accounts.binance.com/uk-UA/register?ref=747973865&gclid=Cj0KCQiAkKqsBhC3ARIsAEEjuJiCLfabY6cA5U0DIP_D0mnn7hsGNjz2oJJf1YI4oN7TEnJ1anTnQuoaAoyUEALw_wcB">
-                    Binance
-                  </Link>
-                </li>
-                <li className="flex gap-5 items-center">
-                  <Image width={60} src={coinbase} alt="binance" />
-                  <Link href="https://www.coinbase.com/ ">Coinbase</Link>
-                </li>
-                <li className="flex gap-5 items-center">
-                  <Image width={60} src={whitebit} alt="binance" />
-                  <Link href="https://whitebit.com/auth/register?referral=01482431-a2f2-4fc7-b7bb-e46585ef7c64">
-                    WhiteBit
-                  </Link>
-                </li>
-                <li className="flex gap-5 items-center">
-                  <Image width={60} src={tradingview} alt="binance" />
-                  <Link href="https://www.tradingview.com/#market-summary">
-                    TradingView
-                  </Link>
-                </li>
-              </div>
+              <MarketWindow />
               <Image
                 className="rounded-tr-[20px] rounded-br-[20px]"
                 src={cryptoimg}
@@ -110,6 +80,7 @@ const TheHeader = () => {
               setIsMarketVisible(false);
               setIsBrokersVisible(true);
               setIsNewsVisible(false);
+              setIsTrialVisible(false);
             }}
           >
             Brokers
@@ -125,85 +96,7 @@ const TheHeader = () => {
                 alt="isome"
                 height={400}
               />
-              <div className="w-full flex">
-                <div className="flex p-5 flex-col gap-10 w-[full] justify-center">
-                  <Link
-                    target="_blank"
-                    href="https://www.blackrock.com/corporate/about-us"
-                  >
-                    <Image
-                      src={blackrock}
-                      alt="blackrock"
-                      className="border-2 w-[220px] h-[110px] rounded-2xl"
-                    />
-                    <div>BlackRock</div>
-                    <p className="flex text-yellow-400">
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarHalfIcon />
-                    </p>
-                  </Link>
-
-                  <Link
-                    target="_blank"
-                    href="https://www.interactivebrokers.com/en/whyib/overview.php"
-                  >
-                    <Image
-                      src={interactive}
-                      alt="interactive"
-                      className="rounded-2xl w-[220px] h-[110px] border-2"
-                    />
-                    <div>IBKR</div>
-                    <p className="flex text-yellow-400">
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarBorderIcon />
-                    </p>
-                  </Link>
-                </div>
-                <div className="flex flex-col gap-10 w-[full] justify-center">
-                  <Link
-                    target="_blank"
-                    href="https://www.trading212.com/pl/about-us"
-                  >
-                    <Image
-                      src={trading212}
-                      alt="trading212"
-                      className=" border-2 w-[220px] h-[110px] rounded-2xl"
-                    />
-                    <div>Trading 212</div>
-                    <p className="flex text-yellow-400">
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarBorderIcon />
-                    </p>
-                  </Link>
-                  <Link
-                    target="_blank"
-                    href="https://investor.vanguard.com/home"
-                  >
-                    <Image
-                      src={vanguard}
-                      alt="vanguard"
-                      className="rounded-2xl w-[220px] h-[110px] border-2"
-                    />
-                    <div>Vanguard</div>
-                    <p className="flex  text-yellow-400">
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarHalfIcon />
-                    </p>
-                  </Link>
-                </div>
-              </div>
+              <BrokersWindow />
             </div>
           )}
           <Link
@@ -212,6 +105,7 @@ const TheHeader = () => {
               setIsMarketVisible(false);
               setIsNewsVisible(true);
               setIsBrokersVisible(false);
+              setIsTrialVisible(false);
             }}
           >
             News
@@ -233,9 +127,22 @@ const TheHeader = () => {
               </div>
             </div>
           )}
-          <button className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500">
+          <button
+            onMouseEnter={() => {
+              setIsMarketVisible(false);
+              setIsNewsVisible(false);
+              setIsBrokersVisible(false);
+              setIsTrialVisible(true);
+            }}
+            className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
+          >
             Upgrade trial
           </button>
+          {isTrialVisible && (
+            <div className="absolute bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]">
+              <SubscribeWindow />
+            </div>
+          )}
         </ul>
         <div className="flex max-2xl:hidden">
           <Button lebel="Sign in" />

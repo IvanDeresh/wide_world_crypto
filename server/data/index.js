@@ -111,3 +111,15 @@ export const newsData = [
     tags: ["NFTs", "Tech Giants", "Blockchain"],
   },
 ];
+export const usersData = [
+  {
+    username: "user1",
+    email: "user1@example.com",
+    password: "password1",
+  },
+  {
+    username: "user2",
+    email: "user2@example.com",
+    password: "password2",
+  },
+];
