@@ -15,25 +15,13 @@ const TheHeader = () => {
   const [isMarketVisible, setIsMarketVisible] = useState(false);
   const [isBrokersVisible, setIsBrokersVisible] = useState(false);
   const [isNewsVisible, setIsNewsVisible] = useState(false);
-  const [isTrialVisible, setIsTrialVisible] = useState(false);
-
-  const toggleMarket = () => {
-    setIsMarketVisible(!isMarketVisible);
-  };
-  const toggleTrial = () => {
-    setIsTrialVisible(!isTrialVisible);
-  };
-  const toggleBroker = () => {
-    setIsBrokersVisible(!isBrokersVisible);
-  };
-  const toggleNews = () => {
-    setIsNewsVisible(!isNewsVisible);
-  };
+  const [isSubscriveVisible, setIsSubscriveVisible] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       setIsMarketVisible(false);
       setIsBrokersVisible(false);
       setIsNewsVisible(false);
+      setIsSubscriveVisible(false);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -56,14 +44,14 @@ const TheHeader = () => {
               setIsMarketVisible(true);
               setIsBrokersVisible(false);
               setIsNewsVisible(false);
-              setIsTrialVisible(false);
+              setIsSubscriveVisible(false);
             }}
           >
             Markets
           </button>
           {isMarketVisible && (
             <div
-              onMouseLeave={toggleMarket}
+              onMouseLeave={() => setIsMarketVisible(false)}
               className="absolute bg-white flex items-center justify-between w-[700px] h-[400px] top-[80px] left-[20px] rounded-[20px]"
             >
               <MarketWindow />
@@ -80,14 +68,14 @@ const TheHeader = () => {
               setIsMarketVisible(false);
               setIsBrokersVisible(true);
               setIsNewsVisible(false);
-              setIsTrialVisible(false);
+              setIsSubscriveVisible(false);
             }}
           >
             Brokers
           </button>
           {isBrokersVisible && (
             <div
-              onMouseLeave={toggleBroker}
+              onMouseLeave={() => setIsBrokersVisible(false)}
               className="w-[820px] text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[20px] bg-white h-[400px]"
             >
               <Image
@@ -105,7 +93,7 @@ const TheHeader = () => {
               setIsMarketVisible(false);
               setIsNewsVisible(true);
               setIsBrokersVisible(false);
-              setIsTrialVisible(false);
+              setIsSubscriveVisible(false);
             }}
           >
             News
@@ -113,7 +101,7 @@ const TheHeader = () => {
           {isNewsVisible && (
             <div
               onMouseLeave={() => {
-                toggleNews();
+                setIsNewsVisible(false);
               }}
               className="absolute top-[80px] left-[20px] bg-white w-[930px] h-[400px] border-2 rounded-[20px]"
             >
@@ -132,21 +120,29 @@ const TheHeader = () => {
               setIsMarketVisible(false);
               setIsNewsVisible(false);
               setIsBrokersVisible(false);
-              setIsTrialVisible(true);
+              setIsSubscriveVisible(true);
             }}
             className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
           >
             Upgrade trial
           </button>
-          {isTrialVisible && (
-            <div className="absolute bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]">
-              <SubscribeWindow />
+          {isSubscriveVisible && (
+            <div
+              onMouseLeave={() => setIsSubscriveVisible(false)}
+              className="absolute flex flex-col items-center justify-center bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]"
+            >
+              <div className="text-black text font-bold text-[25px]">
+                Subscriptions
+              </div>
+              <div className="w-full">
+                <SubscribeWindow />
+              </div>
             </div>
           )}
         </ul>
-        <div className="flex max-2xl:hidden">
+        <Link href="/" className="flex max-2xl:hidden">
           <Button lebel="Sign in" />
-        </div>
+        </Link>
         <div
           className="hidden max-2xl:flex"
           onClick={() => setIsactive(!isActive)}

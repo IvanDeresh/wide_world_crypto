@@ -11,6 +11,9 @@ import blackrock from "./blackrock.jpg";
 import interactive from "./interactive.jpg";
 import cryptoimg from "./cryptoimg.jpg";
 import bgprimary from "./bgprimary.png";
+import medium from "./crown_8742762.png";
+import gold from "./crown_6941697.png";
+import tryperiod from "./easter-day_7254425.png";
 import isometric from "./Technology Isometric Clean Data Illustration.jpg";
 export {
   trading212,
@@ -18,6 +21,9 @@ export {
   blackrock,
   interactive,
   factory,
+  tryperiod,
+  medium,
+  gold,
   cryptoimg,
   bgprimary,
   ethereum,
