@@ -8,7 +8,27 @@
     margin: 0 auto;
   }
 }
+::-webkit-scrollbar {
+  width: 20px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #21296e;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #141941;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1a2163;
+}
 :root {
   --foreground-rgb: 0, 0, 0;
 }

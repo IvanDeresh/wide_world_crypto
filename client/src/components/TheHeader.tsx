@@ -10,17 +10,35 @@ import NewsWindow from "./NewsWindow";
 import MarketWindow from "./MarketWindow";
 import BrokersWindow from "./BrokersWindow";
 import SubscribeWindow from "./SubscribeWindow";
+import { useFetchData } from "@/function";
+
 const TheHeader = () => {
   const [isActive, setIsactive] = useState(false);
   const [isMarketVisible, setIsMarketVisible] = useState(false);
   const [isBrokersVisible, setIsBrokersVisible] = useState(false);
   const [isNewsVisible, setIsNewsVisible] = useState(false);
   const [isSubscriveVisible, setIsSubscriveVisible] = useState(false);
+  const [isSearchClicked, setIsSearchCliecked] = useState(false);
+
+  const getFilteredItems = (query: string, items: any, isLoading: any) => {
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+    if (!query) {
+      return items;
+    } else {
+      return items.filter((item: any) => item.id.includes(query));
+    }
+  };
+  const [query, setQuery] = useState("");
+  const { coins, isLoading, isError } = useFetchData();
+  const filteredItems = getFilteredItems(query, coins, isLoading);
   useEffect(() => {
     const handleScroll = () => {
       setIsMarketVisible(false);
       setIsBrokersVisible(false);
-      setIsNewsVisible(false);
+      setIsSearchCliecked(false);
+      setIsSubscriveVisible(false);
       setIsSubscriveVisible(false);
     };
 
@@ -33,15 +51,70 @@ const TheHeader = () => {
   return (
     <header className="font-montserrat relative max-container">
       <div className="flex justify-around items-center mt-[40px]">
-        <div className="text-[30px] font-montserrat">WideWorld</div>
-        <input
-          placeholder="Search"
-          className="w-[20%] h-[50px] max-2xl:w-[40%] outline-none font-bold text-white pl-8 bg-slate-600 rounded-full placeholder:text-white"
-        />
+        <Link href="/" className="text-[30px] font-montserrat">
+          WideWorld
+        </Link>
+
+        <div className="w-[20%] max-2xl:w-[40%]">
+          <input
+            onChange={(e: any) => {
+              setQuery(e.target.value);
+            }}
+            onClick={() => {
+              setIsMarketVisible(false);
+              setIsSearchCliecked(true);
+              setIsBrokersVisible(false);
+              setIsNewsVisible(false);
+              setIsSubscriveVisible(false);
+              setIsactive(false);
+            }}
+            placeholder="Search"
+            className="w-[100%] h-[50px]  outline-none font-bold text-white pl-8 bg-[#141941] rounded-full placeholder:text-white"
+          />
+          {isSearchClicked && (
+            <div
+              onMouseLeave={() => setIsSearchCliecked(false)}
+              className="top-[80px] items-center pb-10 overflow-y-auto h-[400px] gap-4 max-2xl:w-[50%] max-2xl:left-[28%] bg-[#21296e] absolute w-[70%] rounded-2xl  flex flex-col pt-[50px] px-10 left-[210px]"
+            >
+              {Array.isArray(filteredItems) ? (
+                filteredItems.map((coin: any) => (
+                  <Link
+                    href={`/pages/${coin.id}`}
+                    className="border-2 items-center justify-around flex w-[80%] rounded-2xl min-h-[50px]"
+                    key={coin.id}
+                  >
+                    <div className="flex justify-around w-[10%] max-2xl:w-[40%]">
+                      <Image
+                        src={coin.icon}
+                        alt={coin.id}
+                        width={20}
+                        height={20}
+                      />
+                      <div>{coin.symbol}</div>
+                    </div>
+                    <div className="max-xl:hidden flex">{coin.name} / USD</div>
+                    <div
+                      className={`${
+                        coin.priceChange1h > 0
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {coin.priceChange1h} %
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div>Loading...</div>
+              )}
+            </div>
+          )}
+        </div>
         <ul className="flex max-2xl:hidden items-center justify-around w-[40%] font-montserrat text-[20px]">
           <button
             onMouseEnter={() => {
               setIsMarketVisible(true);
+              setIsSearchCliecked(false);
               setIsBrokersVisible(false);
               setIsNewsVisible(false);
               setIsSubscriveVisible(false);
@@ -67,6 +140,7 @@ const TheHeader = () => {
             onMouseEnter={() => {
               setIsMarketVisible(false);
               setIsBrokersVisible(true);
+              setIsSearchCliecked(false);
               setIsNewsVisible(false);
               setIsSubscriveVisible(false);
             }}
@@ -92,6 +166,7 @@ const TheHeader = () => {
             onMouseEnter={() => {
               setIsMarketVisible(false);
               setIsNewsVisible(true);
+              setIsSearchCliecked(false);
               setIsBrokersVisible(false);
               setIsSubscriveVisible(false);
             }}
@@ -115,17 +190,19 @@ const TheHeader = () => {
               </div>
             </div>
           )}
-          <button
+          <Link
+            href="/pages/subscribe"
             onMouseEnter={() => {
               setIsMarketVisible(false);
               setIsNewsVisible(false);
               setIsBrokersVisible(false);
+              setIsSearchCliecked(false);
               setIsSubscriveVisible(true);
             }}
-            className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
+            className="bg-gradient-to-r flex justify-center items-center w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
           >
             Upgrade trial
-          </button>
+          </Link>
           {isSubscriveVisible && (
             <div
               onMouseLeave={() => setIsSubscriveVisible(false)}
@@ -140,17 +217,23 @@ const TheHeader = () => {
             </div>
           )}
         </ul>
-        <Link href="/" className="flex max-2xl:hidden">
-          <Button lebel="Sign in" />
+        <Link
+          href="/pages/sign-in"
+          className="flex w-[150px] h-[50px] border-2 justify-center items-center text-[20px] rounded-3xl max-2xl:hidden"
+        >
+          Sign in
         </Link>
         <div
-          className="hidden max-2xl:flex"
-          onClick={() => setIsactive(!isActive)}
+          className="hidden max-2xl:flex text-[40px]"
+          onClick={() => {
+            setIsSearchCliecked(false);
+            setIsactive(!isActive);
+          }}
         >
           {isActive ? (
-            <CloseIcon className="text-[40px]" />
+            <CloseIcon className="text-[50px] cursor-pointer" />
           ) : (
-            <MenuIcon className="text-[40px]" />
+            <MenuIcon className="text-[50px] cursor-pointer" />
           )}
         </div>
         {isActive && (

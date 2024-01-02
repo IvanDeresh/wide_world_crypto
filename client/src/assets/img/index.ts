@@ -12,6 +12,7 @@ import interactive from "./interactive.jpg";
 import cryptoimg from "./cryptoimg.jpg";
 import bgprimary from "./bgprimary.png";
 import medium from "./crown_8742762.png";
+import wideworld from "./bitcoin-logo_7145903.png";
 import gold from "./crown_6941697.png";
 import tryperiod from "./easter-day_7254425.png";
 import isometric from "./Technology Isometric Clean Data Illustration.jpg";
@@ -23,6 +24,7 @@ export {
   factory,
   tryperiod,
   medium,
+  wideworld,
   gold,
   cryptoimg,
   bgprimary,

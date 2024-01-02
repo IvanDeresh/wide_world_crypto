@@ -23,7 +23,7 @@ const SubscribeWindow = () => {
         </div>
       </div>
       <Link
-        href="/"
+        href="/pages/subscribe"
         className="text-blue-300 hover:underline-offset-4 hover:underline "
       >
         See more

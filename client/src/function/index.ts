@@ -3,14 +3,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { CryptoCurrency } from "@/types";
 import { INews } from "@/types";
-export function fetchData({ url }: { url: string }) {
+
+export function useFetchData() {
   const [coins, setCoins] = useState<CryptoCurrency[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios({
-          url: url,
+          url: "https://openapiv1.coinstats.app/coins",
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -19,15 +22,19 @@ export function fetchData({ url }: { url: string }) {
         });
         setCoins(response.data.result);
       } catch (error) {
+        setIsError(true);
         console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false); // Corrected to false
       }
     };
 
     fetchData();
   }, []);
 
-  return coins;
+  return { coins, isError, isLoading };
 }
+
 export function fetchNews() {
   const [news, setNews] = useState<INews[]>([]);
   useEffect(() => {
