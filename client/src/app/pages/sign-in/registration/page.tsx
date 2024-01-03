@@ -1,30 +1,26 @@
 "use client";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState, ChangeEvent } from "react";
 
 const page = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [click, setClick] = useState(false);
-  const [result, setResult] = useState<AxiosResponse<any> | null>(null);
-
-  useEffect(() => {
-    const userLogin = async () => {
-      try {
-        const result = await axios.post("/auth/registration", {
-          username: name,
-          email: email,
-          password: password,
-        });
-        setResult(result);
-      } catch (e) {
-        console.log("registration error", e);
-      }
-    };
-    userLogin();
-  }, [click]);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async () => {
+    try {
+      await axios.post("http://localhost:3003/auth/registration", formData);
+    } catch (error) {
+      console.error("Error registration user", error);
+    }
+  };
 
   return (
     <div className="h-screen justify-center flex items-center">
@@ -38,33 +34,33 @@ const page = () => {
             className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
             type="text"
             placeholder="Name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
           />
           <input
             className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
-            type="text"
+            type="email"
             placeholder="Email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
           />
           <input
             className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
             type="password"
             placeholder="Password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
           <button
-            onClick={() => setClick(!click)}
+            onClick={handleSubmit}
             className="w-[150px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
           >
             Confirm
           </button>
-          {result && <div>{result.data}</div>}
+
           <div className="flex justify-around w-[100%]">
             <Link
               href="/"

@@ -24,7 +24,7 @@ const NewsWindow = () => {
       {data.map((news) => (
         <div key={news.id} className="">
           {news.id <= 3 && (
-            <div className="border-2 rounded-xl p-2">
+            <div className="border-2 rounded-2xl">
               <div className="font-bold">{news.title}</div>
               <div className="text-blue-200s">
                 {formatDate(new Date(news.date))} |{" "}

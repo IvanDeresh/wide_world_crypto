@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+
 const page = () => {
   return (
     <div className="h-screen max-container flex font-montserrat justify-center items-center">

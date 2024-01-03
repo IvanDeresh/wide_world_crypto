@@ -74,13 +74,13 @@ const TheHeader = () => {
           {isSearchClicked && (
             <div
               onMouseLeave={() => setIsSearchCliecked(false)}
-              className="top-[80px] items-center pb-10 overflow-y-auto h-[400px] gap-4 max-2xl:w-[50%] max-2xl:left-[28%] bg-[#21296e] absolute w-[70%] rounded-2xl  flex flex-col pt-[50px] px-10 left-[210px]"
+              className="top-[80px] z-50 items-center pb-10 overflow-y-auto h-[400px] gap-4 max-2xl:w-[50%] max-2xl:left-[28%] bg-[#21296e] absolute w-[70%] rounded-2xl  flex flex-col pt-[50px] px-10 left-[210px]"
             >
               {Array.isArray(filteredItems) ? (
                 filteredItems.map((coin: any) => (
                   <Link
                     href={`/pages/${coin.id}`}
-                    className="border-2 items-center justify-around flex w-[80%] rounded-2xl min-h-[50px]"
+                    className="border-2  items-center justify-around flex w-[80%] rounded-2xl min-h-[50px]"
                     key={coin.id}
                   >
                     <div className="flex justify-around w-[10%] max-2xl:w-[40%]">
@@ -125,7 +125,7 @@ const TheHeader = () => {
           {isMarketVisible && (
             <div
               onMouseLeave={() => setIsMarketVisible(false)}
-              className="absolute bg-white flex items-center justify-between w-[700px] h-[400px] top-[80px] left-[20px] rounded-[20px]"
+              className="absolute z-50 bg-white flex items-center justify-between w-[700px] h-[400px] top-[80px] left-[20px] rounded-[20px]"
             >
               <MarketWindow />
               <Image
@@ -150,7 +150,7 @@ const TheHeader = () => {
           {isBrokersVisible && (
             <div
               onMouseLeave={() => setIsBrokersVisible(false)}
-              className="w-[820px] text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[20px] bg-white h-[400px]"
+              className="w-[820px] z-50 text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[20px] bg-white h-[400px]"
             >
               <Image
                 className="rounded-tl-[20px] rounded-bl-[20px]"
@@ -162,7 +162,7 @@ const TheHeader = () => {
             </div>
           )}
           <Link
-            href="/"
+            href="/pages/news"
             onMouseEnter={() => {
               setIsMarketVisible(false);
               setIsNewsVisible(true);
@@ -178,14 +178,14 @@ const TheHeader = () => {
               onMouseLeave={() => {
                 setIsNewsVisible(false);
               }}
-              className="absolute top-[80px] left-[20px] bg-white w-[930px] h-[400px] border-2 rounded-[20px]"
+              className="absolute z-50 top-[80px] left-[20px] bg-white w-[930px] h-[400px] border-2 rounded-[20px]"
             >
               <div className="absolute bottom-[-120px] flex items-center">
                 <NewsWindow />
                 <Image
                   src={bgprimary}
                   alt="bg"
-                  className="h-[390px] mb-[110px] rounded-2xl"
+                  className="h-[360px] mb-[110px] rounded-2xl"
                 />
               </div>
             </div>
@@ -206,7 +206,7 @@ const TheHeader = () => {
           {isSubscriveVisible && (
             <div
               onMouseLeave={() => setIsSubscriveVisible(false)}
-              className="absolute flex flex-col items-center justify-center bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]"
+              className="absolute z-50 flex flex-col items-center justify-center bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]"
             >
               <div className="text-black text font-bold text-[25px]">
                 Subscriptions

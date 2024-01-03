@@ -1,29 +1,36 @@
 "use client";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse } from "axios";
+import React, { useState, ChangeEvent } from "react";
+import axios from "axios";
 
 const Page = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [click, setClick] = useState(false);
-  const [result, setResult] = useState<AxiosResponse<any> | null>(null);
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3003/auth/login",
+        formData
+      );
+      const { token, message } = response.data;
 
-  useEffect(() => {
-    const userLogin = async () => {
-      try {
-        const result = await axios.post("/auth/login", {
-          username: name,
-          password: password,
-        });
-        setResult(result);
-      } catch (e) {
-        console.log("login error", e);
+      if (token) {
+        localStorage.setItem("token", token);
+        console.log(message);
+      } else {
+        console.error(message);
       }
-    };
-    userLogin();
-  }, [click]);
-
+    } catch (error) {
+      console.error("Error login user", error);
+    }
+  };
   return (
     <div className="h-screen justify-center flex items-center">
       <div className="flex justify-center items-center mb-[300px] border-2 w-[500px] h-[600px] rounded-3xl">
@@ -36,25 +43,25 @@ const Page = () => {
             className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
             type="text"
             placeholder="Name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
           />
           <input
             className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
             type="password"
             placeholder="Password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
           />
           <button
-            onClick={() => setClick(!click)}
+            onClick={handleSubmit}
             className="w-[150px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
           >
             Confirm
           </button>
-          {result && <div>{result.data}</div>}
+
           <div className="flex justify-around w-[100%]">
             <Link
               href="/"

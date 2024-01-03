@@ -58,7 +58,9 @@ const Hero = () => {
             <Image src={bitcoin} alt="btc" width={40} />
             <Image src={ethereum} alt="eth" width={40} />
           </div>
-          <Button lebel="Let's see" />
+          <Link href="/pages/subscribe">
+            <Button lebel="Let's see" />
+          </Link>
         </div>
         <Image src={factory} alt="icon" className="rounded-2xl" />
       </div>

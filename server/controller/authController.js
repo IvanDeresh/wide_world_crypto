@@ -49,13 +49,13 @@ export const login = async (req, res) => {
     }
     const validPasword = bcrypt.compareSync(password, user.password);
     if (!validPasword) {
-      return res.status(400).json({ message: "Password error" });
+      return res.status(401).json({ message: "Password error" });
     }
     const token = generateAccessToken(user._id, user.roles);
     return res.json({ token, message: "login successful" });
   } catch (e) {
     console.log(e);
-    res.status(400).json({ message: "Login error" });
+    res.status(402).json({ message: "Login error" });
   }
 };
 export const getUsers = async (req, res) => {

@@ -1,33 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { gold, medium, tryperiod } from "@/assets/img";
 const page = () => {
   return (
-    <div className="h-screen max-container justify-center flex items-start mt-[200px]">
+    <div className="h-screen p-5 max-container justify-start flex-col flex items-center gap-[100px] mt-[200px]">
+      <div className="text-[40px] font-montserrat ">
+        Our special subscriptions
+      </div>
       <table>
         <thead>
           <tr>
             <th className="border-b-[6px] border-r-[6px] w-[300px] h-[100px]"></th>
-            <th className="text-[25px]   w-[300px] h-[100px]">
+            <th className="max-xl:text-[20px] text-[25px]   w-[300px] h-[100px]">
               <div className="flex items-center justify-center gap-4">
-                <Image
-                  className="mb-4"
-                  src={tryperiod}
-                  alt="medium"
-                  width={60}
-                />
+                <Image src={tryperiod} alt="medium" width={50} />
                 Trial period
               </div>
             </th>
             <th className="text-[25px] border-l-[6px] border-r-[6px] w-[300px] h-[100px]">
               <div className="flex items-center justify-center gap-4">
-                <Image className="mb-4" src={medium} alt="medium" width={60} />
+                <Image className="mb-4" src={medium} alt="medium" width={50} />
                 Medium
               </div>
             </th>
             <th className="text-[25px] border-b-[6px] w-[300px] h-[100px]">
               <div className="flex items-center justify-center gap-4">
-                <Image src={gold} alt="gold" width={60} />
+                <Image src={gold} alt="gold" width={50} />
                 Premium
               </div>
             </th>
@@ -68,14 +66,14 @@ const page = () => {
               YES
             </td>
           </tr>
-          <tr>
-            <td className=" border-r-[6px] w-[300px] h-[100px]">
+          <tr className="text-green-300">
+            <td className=" border-r-[6px] text-white w-[300px] h-[100px]">
               Рядок, Колонка 4
             </td>
-            <td className="border-r-[6px] text-[30px] pl-[10%]">NO</td>
-            <td className="border-r-[6px] text-[30px] pl-[10%]">NO</td>
+            <td className="border-r-[6px] text-[30px] pl-[10%]">1$</td>
+            <td className="border-r-[6px] text-[30px] pl-[10%]">20$</td>
             <td className="border-l-[6px] border-t-[6px] text-[30px] pl-[10%]">
-              YES
+              30$
             </td>
           </tr>
         </tbody>

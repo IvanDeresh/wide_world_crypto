@@ -9,7 +9,7 @@ const SubscribeWindow = () => {
         <div className="flex items-center justify-around border-2 rounded-2xl h-[70px]">
           <Image className="w-[50px] h-[50px]" src={tryperiod} alt="trial" />
           Trial period
-          <div className="text-green-400">0$</div>
+          <div className="text-green-400">1$</div>
         </div>
         <div className="flex items-center justify-around border-2 rounded-2xl h-[70px]">
           <Image className="w-[50px] h-[50px]" src={medium} alt="medium" />
