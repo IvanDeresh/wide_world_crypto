@@ -17,10 +17,10 @@ const BrokersWindow = () => {
             <Image
               src={blackrock}
               alt="blackrock"
-              className="border-2 w-[220px] h-[110px] rounded-2xl"
+              className="border-2 w-[120px] h-[60px] rounded-2xl"
             />
             <div>BlackRock</div>
-            <p className="flex text-yellow-400">
+            <p className="flex  text-yellow-400">
               <StarIcon />
               <StarIcon />
               <StarIcon />
@@ -36,7 +36,7 @@ const BrokersWindow = () => {
             <Image
               src={interactive}
               alt="interactive"
-              className="rounded-2xl w-[220px] h-[110px] border-2"
+              className="border-2 w-[120px] h-[60px] rounded-2xl"
             />
             <div>IBKR</div>
             <p className="flex text-yellow-400">
@@ -53,7 +53,7 @@ const BrokersWindow = () => {
             <Image
               src={trading212}
               alt="trading212"
-              className=" border-2 w-[220px] h-[110px] rounded-2xl"
+              className="border-2 w-[120px] h-[60px] rounded-2xl"
             />
             <div>Trading 212</div>
             <p className="flex text-yellow-400">
@@ -68,7 +68,7 @@ const BrokersWindow = () => {
             <Image
               src={vanguard}
               alt="vanguard"
-              className="rounded-2xl w-[220px] h-[110px] border-2"
+              className="border-2 w-[120px] h-[60px] rounded-2xl"
             />
             <div>Vanguard</div>
             <p className="flex  text-yellow-400">

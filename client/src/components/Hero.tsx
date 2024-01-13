@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { factory, ethereum, bitcoin } from "@/assets/img";
 import Button from "./Button";
-import { useFetchData } from "@/function";
+import { fetchCoins } from "@/function";
 const Hero = () => {
-  const { coins, isError, isLoading } = useFetchData();
+  const { coins, isError, isLoading } = fetchCoins();
   const [visibleCoins, setVisibleCoins] = useState<string[]>([]);
 
   useEffect(() => {
@@ -15,15 +15,17 @@ const Hero = () => {
       let coinsToShow: string[] = [];
 
       switch (true) {
-        case screenWidth >= 1800:
-          coinsToShow.push("Solana");
-        case screenWidth >= 1500:
-          coinsToShow.push("BNB");
+        case screenWidth >= 1450:
+          coinsToShow.push("XRP");
         case screenWidth >= 1200:
+          coinsToShow.push("Solana");
+        case screenWidth >= 1000:
+          coinsToShow.push("BNB");
+        case screenWidth >= 800:
           coinsToShow.push("Tether");
-        case screenWidth >= 700:
+        case screenWidth >= 600:
           coinsToShow.push("Ethereum");
-        case screenWidth >= 400:
+        case screenWidth >= 0:
           coinsToShow.push("Bitcoin");
           break;
         default:
@@ -41,7 +43,7 @@ const Hero = () => {
     };
   }, []);
   return (
-    <section className="max-container flex flex-col max-xl:mx-[10%] ">
+    <section className="max-container w-full flex flex-col">
       <div className="flex items-center max-xl:flex-col-reverse">
         <div className="flex flex-col justify-center ">
           <div className="max-2xl:w-[400px]">
@@ -62,10 +64,13 @@ const Hero = () => {
             <Button lebel="Let's see" />
           </Link>
         </div>
-        <Image src={factory} alt="icon" className="rounded-2xl" />
+        <Image
+          src={factory}
+          alt="icon"
+          className="rounded-2xl max-md:w-[80vw]"
+        />
       </div>
-      <div className="mt-[200px] max-xl:ml-[27%]">
-        <div className="w-[85vw] max-[1200px]:w-[70vw] max-[900px]:w-[85vw] min-[2000px]:w-[115%] bg-white h-[7px] rounded-full mb-[50px]"></div>
+      <div className="mt-[200px] border-b-[4px] border-t-[4px] p-[20px]">
         <div className="flex gap-10">
           {isLoading ? (
             <div className="w-[200px] h-[70px] justify-center flex items-center rounded-2xl ml-[50%] bg-[#21296e]">
@@ -78,7 +83,7 @@ const Hero = () => {
                   {visibleCoins.includes(coin.name) && (
                     <Link
                       href={`/pages/${coin.id}`}
-                      className="w-[300px] justify-around p-5 bg-[#21296e] items-start  flex flex-col rounded-3xl h-[200px] shadow-2xl shadow-white"
+                      className="w-[200px] justify-around p-5 bg-[#21296e] items-start  flex flex-col rounded-3xl h-[150px] shadow-2xl shadow-white"
                     >
                       <div className="flex gap-5 items-center">
                         <Image
@@ -91,7 +96,7 @@ const Hero = () => {
                       </div>
 
                       <div>
-                        <li className="text-blue-400 font-bold text-[20px]">
+                        <li className="text-blue-400 font-bold text-[15px]">
                           {coin.price.toFixed(2)} $
                         </li>
                         <li
@@ -111,7 +116,6 @@ const Hero = () => {
             </div>
           )}
         </div>
-        <div className=" w-[85vw] max-[1200px]:w-[70vw] max-[900px]:w-[85vw] min-[2000px]:w-[115%] bg-white h-[7px] rounded-full mt-[50px]"></div>
       </div>
     </section>
   );

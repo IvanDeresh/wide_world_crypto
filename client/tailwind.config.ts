@@ -8,6 +8,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        fromRight: {
+          "0%": { transform: "translateX(120%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        fromLeft: {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        fromDown: {
+          "0%": { transform: "translateY(250%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        fromRight: "fromRight 1s ease-in-out 1",
+        fromLeft: "fromLeft 1s ease-in-out 1",
+        fromDown: "fromDown 1s ease-in-out 1",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

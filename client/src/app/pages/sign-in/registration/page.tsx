@@ -16,9 +16,26 @@ const page = () => {
   };
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3003/auth/registration", formData);
-    } catch (error) {
-      console.error("Error registration user", error);
+      if (
+        formData.username !== "" &&
+        formData.password !== "" &&
+        formData.email !== ""
+      ) {
+        const response = await axios.post(
+          "http://localhost:3003/auth/registration",
+          formData
+        );
+        const { message, user } = response.data;
+
+        window.alert(message + " " + user.username);
+      } else {
+        window.alert("Fields cannot be empty");
+      }
+    } catch (error: any) {
+      console.log(error);
+      window.alert(
+        "Error registration user" + " . " + error.response.data.message
+      );
     }
   };
 

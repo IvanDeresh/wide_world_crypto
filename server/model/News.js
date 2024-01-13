@@ -26,7 +26,7 @@ const NewsSchema = mongoose.Schema({
     required: true,
   },
   id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true,
   },

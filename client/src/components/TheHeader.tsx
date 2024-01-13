@@ -10,7 +10,8 @@ import NewsWindow from "./NewsWindow";
 import MarketWindow from "./MarketWindow";
 import BrokersWindow from "./BrokersWindow";
 import SubscribeWindow from "./SubscribeWindow";
-import { useFetchData } from "@/function";
+import { fetchCoins } from "@/function";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const TheHeader = () => {
   const [isActive, setIsactive] = useState(false);
@@ -19,7 +20,7 @@ const TheHeader = () => {
   const [isNewsVisible, setIsNewsVisible] = useState(false);
   const [isSubscriveVisible, setIsSubscriveVisible] = useState(false);
   const [isSearchClicked, setIsSearchCliecked] = useState(false);
-
+  const session = useSession();
   const getFilteredItems = (query: string, items: any, isLoading: any) => {
     if (isLoading) {
       return <div>Loading...</div>;
@@ -31,19 +32,19 @@ const TheHeader = () => {
     }
   };
   const [query, setQuery] = useState("");
-  const { coins, isLoading, isError } = useFetchData();
+  const { coins, isLoading, isError } = fetchCoins();
   const filteredItems = getFilteredItems(query, coins, isLoading);
   useEffect(() => {
     const handleScroll = () => {
       setIsMarketVisible(false);
       setIsBrokersVisible(false);
-      setIsSearchCliecked(false);
       setIsSubscriveVisible(false);
       setIsSubscriveVisible(false);
+      setIsNewsVisible(false);
     };
 
     window.addEventListener("scroll", handleScroll);
-
+    window.addEventListener("click", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -51,11 +52,11 @@ const TheHeader = () => {
   return (
     <header className="font-montserrat relative max-container">
       <div className="flex justify-around items-center mt-[40px]">
-        <Link href="/" className="text-[30px] font-montserrat">
+        <Link href="/" className="text-[20px] font-montserrat">
           WideWorld
         </Link>
 
-        <div className="w-[20%] max-2xl:w-[40%]">
+        <div className="w-[30%] max-xl:w-[40%]">
           <input
             onChange={(e: any) => {
               setQuery(e.target.value);
@@ -69,21 +70,21 @@ const TheHeader = () => {
               setIsactive(false);
             }}
             placeholder="Search"
-            className="w-[100%] h-[50px]  outline-none font-bold text-white pl-8 bg-[#141941] rounded-full placeholder:text-white"
+            className="w-[100%] h-[35px]  outline-none text-white pl-8 bg-[#141941] rounded-full placeholder:text-white"
           />
           {isSearchClicked && (
             <div
               onMouseLeave={() => setIsSearchCliecked(false)}
-              className="top-[80px] z-50 items-center pb-10 overflow-y-auto h-[400px] gap-4 max-2xl:w-[50%] max-2xl:left-[28%] bg-[#21296e] absolute w-[70%] rounded-2xl  flex flex-col pt-[50px] px-10 left-[210px]"
+              className="top-[80px] z-50 items-center pb-10 overflow-y-auto h-[250px] gap-4 max-xl:w-[50%] max-sm:w-[300px] max-2xl:left-[28%] bg-[#21296e] absolute w-[50%] rounded-2xl  flex flex-col pt-[50px] px-10 left-[210px]"
             >
               {Array.isArray(filteredItems) ? (
                 filteredItems.map((coin: any) => (
                   <Link
                     href={`/pages/${coin.id}`}
-                    className="border-2  items-center justify-around flex w-[80%] rounded-2xl min-h-[50px]"
+                    className="border-2  items-center justify-around flex w-[100%] rounded-2xl min-h-[50px]"
                     key={coin.id}
                   >
-                    <div className="flex justify-around w-[10%] max-2xl:w-[40%]">
+                    <div className="flex justify-between w-[20%] max-2xl:w-[40%]">
                       <Image
                         src={coin.icon}
                         alt={coin.id}
@@ -110,7 +111,7 @@ const TheHeader = () => {
             </div>
           )}
         </div>
-        <ul className="flex max-2xl:hidden items-center justify-around w-[40%] font-montserrat text-[20px]">
+        <ul className="flex max-xl:hidden items-center justify-around w-[40%] font-montserrat text-[15px]">
           <button
             onMouseEnter={() => {
               setIsMarketVisible(true);
@@ -125,14 +126,14 @@ const TheHeader = () => {
           {isMarketVisible && (
             <div
               onMouseLeave={() => setIsMarketVisible(false)}
-              className="absolute z-50 bg-white flex items-center justify-between w-[700px] h-[400px] top-[80px] left-[20px] rounded-[20px]"
+              className="absolute z-50 bg-white flex items-center justify-between w-[400px] h-[300px] top-[80px] left-[170px] rounded-[20px]"
             >
               <MarketWindow />
               <Image
-                className="rounded-tr-[20px] rounded-br-[20px]"
+                className="rounded-tr-[20px] h-[300px] rounded-br-[20px]"
                 src={cryptoimg}
                 alt="iso"
-                height={400}
+                height={320}
               />
             </div>
           )}
@@ -150,7 +151,7 @@ const TheHeader = () => {
           {isBrokersVisible && (
             <div
               onMouseLeave={() => setIsBrokersVisible(false)}
-              className="w-[820px] z-50 text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[20px] bg-white h-[400px]"
+              className="w-[600px] z-50 text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[280px] bg-white h-[300px]"
             >
               <Image
                 className="rounded-tl-[20px] rounded-bl-[20px]"
@@ -178,15 +179,10 @@ const TheHeader = () => {
               onMouseLeave={() => {
                 setIsNewsVisible(false);
               }}
-              className="absolute z-50 top-[80px] left-[20px] bg-white w-[930px] h-[400px] border-2 rounded-[20px]"
+              className="absolute z-50 top-[80px] left-[400px] bg-white w-[600px] h-[300px] border-2 rounded-[20px]"
             >
-              <div className="absolute bottom-[-120px] flex items-center">
+              <div className="absolute flex p-[30px] items-center">
                 <NewsWindow />
-                <Image
-                  src={bgprimary}
-                  alt="bg"
-                  className="h-[360px] mb-[110px] rounded-2xl"
-                />
               </div>
             </div>
           )}
@@ -199,14 +195,14 @@ const TheHeader = () => {
               setIsSearchCliecked(false);
               setIsSubscriveVisible(true);
             }}
-            className="bg-gradient-to-r flex justify-center items-center w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
+            className="bg-gradient-to-r flex justify-center items-center w-[130px] h-[40px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
           >
             Upgrade trial
           </Link>
           {isSubscriveVisible && (
             <div
               onMouseLeave={() => setIsSubscriveVisible(false)}
-              className="absolute z-50 flex flex-col items-center justify-center bg-white w-[400px] h-[500px] rounded-[20px] top-[100px] right-[160px]"
+              className="absolute z-50 flex flex-col items-center justify-center bg-white w-[300px] h-[400px] rounded-[20px] top-[100px] right-[160px]"
             >
               <div className="text-black text font-bold text-[25px]">
                 Subscriptions
@@ -217,38 +213,65 @@ const TheHeader = () => {
             </div>
           )}
         </ul>
-        <Link
-          href="/pages/sign-in"
-          className="flex w-[150px] h-[50px] border-2 justify-center items-center text-[20px] rounded-3xl max-2xl:hidden"
-        >
-          Sign in
-        </Link>
+        {session?.data ? (
+          <div>
+            <Link href={`/pages/profile/${session?.data?.user?.name}`}>
+              <Image
+                src={
+                  session?.data?.user?.image
+                    ? session?.data?.user?.image
+                    : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
+                }
+                alt="logo"
+              />
+            </Link>
+            <Link onClick={() => signOut({ callbackUrl: "/" })} href="#">
+              Sign out
+            </Link>
+          </div>
+        ) : (
+          <Link
+            onClick={() => signIn()}
+            href="/pages/sign-in"
+            className="flex w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl max-xl:hidden"
+          >
+            Sign in
+          </Link>
+        )}
         <div
-          className="hidden max-2xl:flex text-[40px]"
+          className="hidden max-xl:flex "
           onClick={() => {
             setIsSearchCliecked(false);
             setIsactive(!isActive);
           }}
         >
           {isActive ? (
-            <CloseIcon className="text-[50px] cursor-pointer" />
+            <CloseIcon className="text-[35px] cursor-pointer" />
           ) : (
-            <MenuIcon className="text-[50px] cursor-pointer" />
+            <MenuIcon className="text-[35px] cursor-pointer" />
           )}
         </div>
         {isActive && (
-          <nav className="hidden border-2 w-[250px] h-[350px] rounded-2xl bg-[#abbbd6] justify-around items-center absolute max-2xl:flex max-2xl:flex-col top-[100px] right-[10px] font-montserrat text-[20px]">
-            <ul className="justify-center gap-5 items-center max-2xl:flex h-[60%] max-2xl:flex-col">
+          <nav className="hidden z-50 animate-fromRight border-2 w-[250px] h-[350px] rounded-2xl bg-[#abbbd6] justify-around items-center absolute max-xl:flex max-xl:flex-col top-[100px] right-[10px] font-montserrat text-[15px]">
+            <ul className="justify-center gap-5 items-center max-xl:flex h-[60%] max-xl:flex-col">
               <Link href="/">Markets</Link>
               <Link href="/">Brokers</Link>
-              <Link href="/">News</Link>
+              <Link href="/pages/news">News</Link>
             </ul>
-            <button className="bg-gradient-to-r w-[150px] h-[50px] rounded-full bg-blue-600 from-cyan-500 to-blue-500">
+            <Link
+              href="/pages/subscribe"
+              className="bg-gradient-to-r flex justify-center items-center w-[130px] h-[40px] rounded-full bg-blue-600 from-cyan-500 to-blue-500"
+            >
               Upgrade trial
-            </button>
-            <div className="hidden max-2xl:flex">
-              <Button lebel="Sign in" />
-            </div>
+            </Link>
+
+            <Link
+              onClick={() => signIn()}
+              href="/pages/sign-in"
+              className="hidden max-xl:flex  w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl "
+            >
+              Sign in
+            </Link>
           </nav>
         )}
       </div>

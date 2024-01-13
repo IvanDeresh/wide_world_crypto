@@ -1,7 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { fetchNews } from "@/function";
-
 const AddNews = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -34,15 +33,32 @@ const AddNews = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:3003/api/createNews", formData);
-      console.log("News created successfully");
-    } catch (error) {
-      console.error("Error creating news", error);
+      const response = await axios.post(
+        "http://localhost:3003/api/createNews",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json", // Adjust this based on your server requirements
+          },
+        }
+      );
+      window.alert(response.data.message);
+      if (response.status === 200) {
+        setFormData({
+          title: "",
+          description: "",
+          image: "",
+          author: "",
+          category: "",
+          tags: ["", "", ""],
+        });
+      }
+    } catch (error: any) {
+      window.alert("Error creating news" + error.response.data.message);
     }
   };
-
   return (
-    <div className="w-[800px] max-xl:w-[700px] text-slate-300 h-[700px] rounded-3xl shadow-xl flex justify-center items-center flex-col">
+    <div className="w-[600px] relative max-xl:w-[600px] text-slate-300 h-[600px] rounded-3xl shadow-xl flex justify-center items-center flex-col">
       <h1 className="border-b-2 flex justify-center w-[300px] rounded-2xl text-[30px] text-white">
         Create news
       </h1>

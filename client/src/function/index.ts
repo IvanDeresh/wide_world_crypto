@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { CryptoCurrency } from "@/types";
-import { INews } from "@/types";
+import { CryptoCurrency, User, INews } from "@/types";
 
-export function useFetchData() {
+export function fetchCoins() {
   const [coins, setCoins] = useState<CryptoCurrency[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);

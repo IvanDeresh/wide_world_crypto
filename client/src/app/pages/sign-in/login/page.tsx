@@ -2,35 +2,41 @@
 import Link from "next/link";
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
+import Alert from "@mui/material/Alert";
 const Page = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3003/auth/login",
         formData
       );
-      const { token, message } = response.data;
+      const { token, message, user } = response.data;
 
       if (token) {
         localStorage.setItem("token", token);
-        console.log(message);
+        alert(`${message} ${user.username}`);
+        router.push(`/pages/profile/${user.username}`);
       } else {
-        console.error(message);
+        window.alert(message);
       }
-    } catch (error) {
-      console.error("Error login user", error);
+    } catch (error: any) {
+      window.alert("Error login user" + " . " + error.response.data.message);
     }
   };
+
   return (
     <div className="h-screen justify-center flex items-center">
       <div className="flex justify-center items-center mb-[300px] border-2 w-[500px] h-[600px] rounded-3xl">

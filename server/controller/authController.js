@@ -33,8 +33,15 @@ export const registration = async (req, res) => {
       password: hashPassword,
       roles: [userRole.value],
     });
+    const userWithoutPassword = {
+      username: user.username,
+      email: user.email,
+      roles: user.roles,
+    };
     await user.save();
-    return res.status(200).json({ message: "Registration successful" });
+    return res
+      .status(200)
+      .json({ message: "Registration successful", user: userWithoutPassword });
   } catch (e) {
     console.log(e);
     res.status(400).json({ message: "Registration error" });
@@ -43,16 +50,27 @@ export const registration = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
+    const userWithoutPassword = {
+      username: "",
+      email: "",
+    };
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: "User does not exist" });
+    } else {
+      userWithoutPassword.email = user.email;
+      userWithoutPassword.username = user.username;
     }
     const validPasword = bcrypt.compareSync(password, user.password);
     if (!validPasword) {
       return res.status(401).json({ message: "Password error" });
     }
     const token = generateAccessToken(user._id, user.roles);
-    return res.json({ token, message: "login successful" });
+    return res.json({
+      token,
+      message: "login successful",
+      user: userWithoutPassword,
+    });
   } catch (e) {
     console.log(e);
     res.status(402).json({ message: "Login error" });

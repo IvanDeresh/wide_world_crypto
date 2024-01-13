@@ -31,3 +31,15 @@ export interface INews {
   id: number;
   tags: string[];
 }
+export type Props = {
+  params: {
+    id: string;
+  };
+};
+export type User = {
+  _id: string;
+  roles?: string[];
+  username?: string;
+  email?: string;
+  password?: string;
+};

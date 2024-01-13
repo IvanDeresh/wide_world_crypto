@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import GoogleButton from "@/components/GoogleButton";
 
 const page = () => {
   return (
@@ -10,12 +11,9 @@ const page = () => {
             <h1 className="text-[30px] font-montserrat ">Choose method</h1>
             <div className="w-[150px] h-[7px] rounded-full bg-white"></div>
           </div>
-          <Link
-            href="/"
-            className=" flex justify-center items-center font-bold text-[25px] rounded-2xl  w-[80%] h-[50px] border-2"
-          >
+          <div className=" flex justify-center items-center font-bold text-[25px] rounded-2xl  w-[80%] h-[50px] border-2">
             Google
-          </Link>
+          </div>
           <Link
             href="/pages//sign-in/registration"
             className=" flex justify-center items-center font-bold text-[25px] rounded-2xl  w-[80%] h-[50px] border-2"
