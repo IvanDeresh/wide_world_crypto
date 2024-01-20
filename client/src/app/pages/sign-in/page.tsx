@@ -5,7 +5,7 @@ import GoogleButton from "@/components/GoogleButton";
 const page = () => {
   return (
     <div className="h-screen max-container flex font-montserrat justify-center items-center">
-      <div className="border-2 w-[400px] flex flex-col h-[500px] rounded-3xl justify-around items-center">
+      <div className="border-2 w-[400px] flex flex-col h-[500px] max-sm:w-[400px] max-sm:h-[500px] rounded-3xl justify-around items-center">
         <div className="h-[60%] w-[100%] items-center flex flex-col justify-around">
           <div className="flex flex-col items-center">
             <h1 className="text-[30px] font-montserrat ">Choose method</h1>

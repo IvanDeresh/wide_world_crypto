@@ -5,7 +5,7 @@ import { binance, coinbase, tradingview, whitebit } from "@/assets/img";
 const MarketWindow = () => {
   return (
     <div>
-      <div className="p-[50px] mr-[70px] gap-5 flex flex-col justify-center text-blue-300 font-bold">
+      <div className="p-[50px] mr-[70px] gap-5 flex flex-col justify-center text-blue-300">
         <li className="flex gap-5 items-center">
           <Image width={60} src={binance} alt="binance" />
           <Link

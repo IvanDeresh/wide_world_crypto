@@ -28,7 +28,7 @@ const Page = () => {
       if (token) {
         localStorage.setItem("token", token);
         alert(`${message} ${user.username}`);
-        router.push(`/pages/profile/${user.username}`);
+        router.push(`/pages/profile`);
       } else {
         window.alert(message);
       }
@@ -39,14 +39,14 @@ const Page = () => {
 
   return (
     <div className="h-screen justify-center flex items-center">
-      <div className="flex justify-center items-center mb-[300px] border-2 w-[500px] h-[600px] rounded-3xl">
+      <div className="flex justify-center items-center border-2 w-[500px] h-[600px] max-sm:w-[400px] max-sm:h-[500px] max rounded-3xl">
         <div className="flex flex-col items-center justify-around h-[70%]">
           <div className="flex flex-col items-center">
             <div className="text-[30px] font-montserrat">Login</div>
             <div className="w-[150px] h-[10px] bg-white rounded-full"></div>
           </div>
           <input
-            className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
+            className="h-[50px] p-[10px] w-[400px] max-sm:w-[300px] text-slate-400 rounded-full focus:outline-none"
             type="text"
             placeholder="Name"
             name="username"
@@ -54,7 +54,7 @@ const Page = () => {
             onChange={handleChange}
           />
           <input
-            className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
+            className="h-[50px] p-[10px] w-[400px] max-sm:w-[300px] text-slate-400 rounded-full focus:outline-none"
             type="password"
             placeholder="Password"
             name="password"

@@ -1,18 +1,8 @@
-import type { AuthOptions } from "next-auth";
+import type { AuthOptions, User } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import axios from "axios";
 import Credentials from "next-auth/providers/credentials";
-import dotenv from "dotenv";
-import { User } from "@/types";
-dotenv.config();
-async function getUsersFromServer() {
-  const response = await fetch("http://localhost:3003/auth/users");
-  if (response.ok) {
-    const users = await response.json();
-    return users;
-  } else {
-    throw new Error(`Failed to fetch users: ${response.status}`);
-  }
-}
+
 export const authConfig: AuthOptions = {
   providers: [
     GoogleProvider({
@@ -28,14 +18,20 @@ export const authConfig: AuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
-        const users = await getUsersFromServer();
-        const currentUser = users.find(
-          (user: any) => user.email === credentials.email
-        );
-        if (currentUser && currentUser.password === credentials?.password) {
-          const { password, ...userWithoutPass } = currentUser;
-          return userWithoutPass as User;
+
+        try {
+          const response = await axios.get("http://localhost:3003/auth/users");
+          const currentUser = response.data.find(
+            (user: any) => user.email === credentials.email
+          );
+          if (currentUser && currentUser.password === credentials?.password) {
+            const { password, ...userWithoutPass } = currentUser;
+            return userWithoutPass as User;
+          }
+        } catch (error) {
+          console.error("Error fetching users from API:", error);
         }
+
         return null;
       },
     }),

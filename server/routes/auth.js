@@ -16,5 +16,5 @@ router.post(
   ],
   registration
 );
-router.get("/users", roleMiddleware(["USER"]), getUsers);
+router.get("/users", getUsers);
 export default router;

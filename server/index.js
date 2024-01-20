@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import newsRoutes from "./routes/news.js";
 import authRoutes from "./routes/auth.js";
 import dotenv from "dotenv";
-
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 3005;
@@ -15,7 +14,7 @@ app.use("/auth", authRoutes);
 app.use("/api", newsRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/crypto", {
+  .connect(process.env.MONGODB_URL || "mongodb://localhost:27017/crypto", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

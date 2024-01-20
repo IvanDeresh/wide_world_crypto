@@ -38,7 +38,7 @@ const AddNews = () => {
         formData,
         {
           headers: {
-            "Content-Type": "application/json", // Adjust this based on your server requirements
+            "Content-Type": "application/json",
           },
         }
       );
@@ -58,8 +58,8 @@ const AddNews = () => {
     }
   };
   return (
-    <div className="w-[600px] relative max-xl:w-[600px] text-slate-300 h-[600px] rounded-3xl shadow-xl flex justify-center items-center flex-col">
-      <h1 className="border-b-2 flex justify-center w-[300px] rounded-2xl text-[30px] text-white">
+    <div className="w-[600px] relative max-md:w-[400px] text-slate-300 h-[600px] max-md:h-[600px] rounded-3xl shadow-xl flex justify-center items-center flex-col">
+      <h1 className="min-[1200px]:border-b-2 flex justify-center w-[300px] rounded-2xl text-[30px] text-white">
         Create news
       </h1>
       <div className="h-[70%] flex justify-around w-[100%] items-center flex-col">
@@ -72,18 +72,18 @@ const AddNews = () => {
         />
         <textarea
           placeholder="Description..."
-          className=" outline-none p-[10px] rounded-2xl w-[70%] min-h-[75px] max-h-[200px]"
+          className=" outline-none  p-[10px] rounded-2xl w-[70%] min-h-[75px] max-h-[200px]"
           name="description"
           value={formData.description}
           onChange={handleChange}
         ></textarea>
-        <div className="flex border-t-2 border-b-2 p-[5px] rounded-3xl w-[70%] flex-col h-[100px] justify-between items-center">
+        <div className="flex border-t-2 border-b-2 p-[5px] rounded-3xl w-[70%] flex-col h-[100px] justify-between items-between">
           <div className="text-[20px] text-slate-500">Add image</div>
           <input
             placeholder="Image URL"
             type="file"
             accept="image/*"
-            className="file:w-[200px] file:h-[50px] file:rounded-2xl hover:file:text-blue-400 file:border-none file:text-slate-500 file:cursor-pointer"
+            className="file:w-[200px] file:h-[50px] max-md:file:w-[110px] max-md:file:text-[14px] file:rounded-2xl hover:file:text-blue-400 file:border-none file:text-slate-500 file:cursor-pointer"
             onChange={handleFileChange}
           />
         </div>
@@ -91,14 +91,14 @@ const AddNews = () => {
           <input
             name="author"
             placeholder="Author"
-            className="w-[200px] outline-none p-[10px] h-[50px] rounded-2xl "
+            className="w-[200px] outline-none p-[10px] h-[50px] max-md:w-[130px] rounded-2xl "
             value={formData.author}
             onChange={handleChange}
           />
           <input
             name="category"
             placeholder="Category"
-            className="w-[200px] outline-none p-[10px] h-[50px] rounded-2xl "
+            className="w-[200px] max-md:w-[130px] outline-none p-[10px] h-[50px] rounded-2xl "
             value={formData.category}
             onChange={handleChange}
           />
@@ -117,7 +117,7 @@ const AddNews = () => {
         </div>
       </div>
       <button
-        className="w-[200px] mt-[30px] h-[50px] border-2xl bg-white text-slate-400 rounded-3xl"
+        className="w-[200px] mt-[30px] h-[50px] max-md:w-[] border-2xl bg-white text-slate-400 rounded-3xl"
         onClick={handleSubmit}
       >
         Confirm

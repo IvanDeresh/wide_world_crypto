@@ -21,6 +21,7 @@ const TheHeader = () => {
   const [isSubscriveVisible, setIsSubscriveVisible] = useState(false);
   const [isSearchClicked, setIsSearchCliecked] = useState(false);
   const session = useSession();
+  console.log(session);
   const getFilteredItems = (query: string, items: any, isLoading: any) => {
     if (isLoading) {
       return <div>Loading...</div>;
@@ -186,6 +187,12 @@ const TheHeader = () => {
               </div>
             </div>
           )}
+          {session?.data && <Link href="/pages/profile"></Link>}
+          {session?.data ? (
+            <Link href="/pages/profile">Sign out</Link>
+          ) : (
+            <Link href="/pages/profile">Sign in</Link>
+          )}
           <Link
             href="/pages/subscribe"
             onMouseEnter={() => {
@@ -252,10 +259,54 @@ const TheHeader = () => {
           )}
         </div>
         {isActive && (
-          <nav className="hidden z-50 animate-fromRight border-2 w-[250px] h-[350px] rounded-2xl bg-[#abbbd6] justify-around items-center absolute max-xl:flex max-xl:flex-col top-[100px] right-[10px] font-montserrat text-[15px]">
+          <nav className="hidden z-50 animate-fromRight border-2 w-[250px] max-sm:w-[170px] h-[350px] rounded-2xl bg-[#abbbd6] justify-around items-center absolute max-xl:flex max-xl:flex-col top-[100px] right-[10px] font-montserrat text-[15px]">
             <ul className="justify-center gap-5 items-center max-xl:flex h-[60%] max-xl:flex-col">
-              <Link href="/">Markets</Link>
-              <Link href="/">Brokers</Link>
+              <Link
+                className=""
+                onMouseEnter={() => {
+                  setIsMarketVisible(true);
+                  setIsSearchCliecked(false);
+                  setIsBrokersVisible(false);
+                  setIsNewsVisible(false);
+                  setIsSubscriveVisible(false);
+                }}
+                href="/"
+              >
+                Markets
+              </Link>
+              {isMarketVisible && (
+                <div
+                  onMouseLeave={() => {
+                    setIsMarketVisible(false);
+                  }}
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#ffffff]"
+                >
+                  <MarketWindow />
+                </div>
+              )}
+              <Link
+                href="/"
+                onMouseEnter={() => {
+                  setIsMarketVisible(false);
+                  setIsBrokersVisible(true);
+                  setIsSearchCliecked(false);
+                  setIsNewsVisible(false);
+                  setIsSubscriveVisible(false);
+                }}
+              >
+                Brokers
+              </Link>
+
+              {isBrokersVisible && (
+                <div
+                  onMouseLeave={() => {
+                    setIsBrokersVisible(false);
+                  }}
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#abbbd6]"
+                >
+                  <BrokersWindow />
+                </div>
+              )}
               <Link href="/pages/news">News</Link>
             </ul>
             <Link

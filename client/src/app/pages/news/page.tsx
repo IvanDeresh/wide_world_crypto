@@ -30,12 +30,10 @@ const Page = () => {
   return (
     <div className="h-full h-min-screen max-container relative my-[200px] flex text-[20px] flex-col justify-center items-center">
       <div>
-        <div className="text-[40px] mb-[100px] font-montserrat">
-          News Wide World
-        </div>
+        <div className="text-[40px] mb-[100px] font-montserrat">News</div>
         <button
           onClick={() => setIsClicked(!isClicked)}
-          className="w-[100px] hover:shadow-3xl hover:shadow-white hover:translate-y-[-2px] bg-[#abbbd6] cursor-pointer h-[100px] absolute text-[60px] shadow-2xl border-2 rounded-2xl top-[-20px] right-[15%] flex justify-center items-center max-xl:right-[5%]"
+          className="w-[100px] hover:shadow-3xl max-xl:w-[50px] max-xl:h-[50px] max-xl:text-[30px] hover:shadow-white hover:translate-y-[-2px] bg-[#abbbd6] cursor-pointer h-[100px] absolute text-[60px] shadow-2xl border-2 rounded-2xl top-[-20px] right-[15%] flex justify-center items-center max-xl:right-[5%]"
         >
           +
         </button>
@@ -51,6 +49,7 @@ const Page = () => {
                 sx={{
                   marginY: 3,
                   marginX: "auto",
+                  color: "white",
                 }}
                 renderItem={(item: any) => (
                   <PaginationItem
@@ -85,19 +84,19 @@ const Page = () => {
               >
                 <Link
                   href={`/pages/news/${newsItem.id}`}
-                  className="w-[70vw] items-center h-[120px] flex justify-around rounded-2xl border-2"
+                  className="w-[70vw] items-center h-[120px] gap-[10px] flex justify-around rounded-2xl border-2"
                 >
                   <Image
                     src={newsItem.image}
                     alt="image"
                     width={40}
                     height={40}
-                    className="w-[70px] h-[70px] rounded-xl"
+                    className="w-[70px] h-[70px] rounded-xl max-xl:w-[60px] max-xl:h-[60px]"
                   />
-                  <div className="text-white text-[20px] max-xl:text-[15px]">
+                  <div className="text-white text-[20px] max-xl:text-[13px]">
                     {newsItem.title}
                   </div>
-                  <div className="text-white text-[20px] max-xl:text-[15px]">
+                  <div className="text-white text-[20px] max-xl:hidden">
                     {newsItem.author}
                   </div>
                 </Link>

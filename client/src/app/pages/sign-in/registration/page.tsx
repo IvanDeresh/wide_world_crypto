@@ -41,39 +41,41 @@ const page = () => {
 
   return (
     <div className="h-screen justify-center flex items-center">
-      <div className="flex justify-center items-center mb-[300px] border-2 w-[500px] h-[600px] rounded-3xl">
+      <div className="flex justify-center items-center  border-2 w-[500px] max-sm:w-[400px] max-sm:h-[500px] h-[600px] rounded-3xl">
         <div className="flex flex-col items-center justify-around h-[70%]">
           <div className="flex flex-col items-center">
             <div className="text-[30px] font-montserrat">Registration</div>
             <div className="w-[150px] h-[10px] bg-white rounded-full"></div>
           </div>
-          <input
-            className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
-            type="text"
-            placeholder="Name"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <input
-            className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <input
-            className="h-[50px] p-[10px] w-[400px] text-slate-400 rounded-full focus:outline-none"
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="flex flex-col items-center gap-[10px] mt-[50px]">
+            <input
+              className="h-[50px] p-[10px] w-[400px] max-sm:w-[300px] text-slate-400 rounded-full focus:outline-none"
+              type="text"
+              placeholder="Name"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+            <input
+              className="h-[50px] p-[10px] w-[400px] max-sm:w-[300px] text-slate-400 rounded-full focus:outline-none"
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              className="h-[50px] p-[10px] w-[400px] max-sm:w-[300px] text-slate-400 rounded-full focus:outline-none"
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
           <button
             onClick={handleSubmit}
-            className="w-[150px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
+            className="w-[150px] mb-[20px] mt-[50px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
           >
             Confirm
           </button>
