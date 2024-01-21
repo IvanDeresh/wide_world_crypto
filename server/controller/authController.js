@@ -89,7 +89,11 @@ export const login = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.json({ users, message: "All users" });
+    const usersAll = {
+      username: users.username,
+      password: users.password,
+    };
+    res.json({ usersAll, message: "All users" });
   } catch (e) {
     res.status(404).json({ message: "Server error" });
   }

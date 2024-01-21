@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@/components/Button";
 import { isometric, cryptoimg, bgprimary } from "@/assets/img";
 import NewsWindow from "./NewsWindow";
 import MarketWindow from "./MarketWindow";
@@ -189,12 +188,7 @@ const TheHeader = () => {
             </div>
           )}
           {user && <Link href="/pages/profile">Profile</Link>}
-          {/* {session?.data && <Link href="/pages/profile">{}</Link>}
-          {session?.data ? (
-            <Link href="/pages/profile">Sign out</Link>
-          ) : (
-            <Link href="/pages/profile">Sign in</Link>
-          )} */}
+          {session?.data && <Link href="/pages/profile">Profile</Link>}
           <Link
             href="/pages/subscribe"
             onMouseEnter={() => {
@@ -223,7 +217,7 @@ const TheHeader = () => {
           )}
         </ul>
         {session?.data ? (
-          <div>
+          <div className="flex items-center justify-between gap-[20px]">
             <Link href={`/pages/profile/${session?.data?.user?.name}`}>
               <Image
                 src={
@@ -232,6 +226,9 @@ const TheHeader = () => {
                     : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
                 }
                 alt="logo"
+                width={30}
+                height={30}
+                className="rounded-full"
               />
             </Link>
             <Link onClick={() => signOut({ callbackUrl: "/" })} href="#">
