@@ -37,7 +37,6 @@ export type Props = {
   };
 };
 export type User = {
-  _id: string;
   roles?: string[];
   username?: string;
   email?: string;

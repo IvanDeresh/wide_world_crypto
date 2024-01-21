@@ -22,6 +22,7 @@ const TheHeader = () => {
   const [isSearchClicked, setIsSearchCliecked] = useState(false);
   const session = useSession();
   console.log(session);
+  const user = localStorage.getItem("user");
   const getFilteredItems = (query: string, items: any, isLoading: any) => {
     if (isLoading) {
       return <div>Loading...</div>;
@@ -187,12 +188,13 @@ const TheHeader = () => {
               </div>
             </div>
           )}
-          {session?.data && <Link href="/pages/profile"></Link>}
+          {user && <Link href="/pages/profile">Profile</Link>}
+          {/* {session?.data && <Link href="/pages/profile">{}</Link>}
           {session?.data ? (
             <Link href="/pages/profile">Sign out</Link>
           ) : (
             <Link href="/pages/profile">Sign in</Link>
-          )}
+          )} */}
           <Link
             href="/pages/subscribe"
             onMouseEnter={() => {
@@ -279,7 +281,7 @@ const TheHeader = () => {
                   onMouseLeave={() => {
                     setIsMarketVisible(false);
                   }}
-                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#ffffff]"
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] max-sm:right-[180px] right-[300px] bg-[#ffffff]"
                 >
                   <MarketWindow />
                 </div>
@@ -302,12 +304,24 @@ const TheHeader = () => {
                   onMouseLeave={() => {
                     setIsBrokersVisible(false);
                   }}
-                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#abbbd6]"
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] max-sm:right-[180px] right-[300px] bg-[#abbbd6]"
                 >
                   <BrokersWindow />
                 </div>
               )}
-              <Link href="/pages/news">News</Link>
+              <Link
+                href="/pages/news"
+                onMouseEnter={() => {
+                  setIsMarketVisible(false);
+                  setIsSearchCliecked(false);
+                  setIsBrokersVisible(false);
+                  setIsNewsVisible(false);
+                  setIsSubscriveVisible(false);
+                }}
+              >
+                News
+              </Link>
+              {user && <Link href="/pages/profile">Profile</Link>}
             </ul>
             <Link
               href="/pages/subscribe"
