@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { gold, medium, tryperiod } from "@/assets/img";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -79,6 +80,26 @@ const page = () => {
           </tr>
         </tbody>
       </table>
+      <div className="flex justify-around w-full gap-[20px] text-[25px] max-sm:text-[20px]">
+        <Link
+          href="/pages/payment/trial-period"
+          className="w-[200px] flex justify-center items-center h-[75px]  text-[#333232] rounded-xl border-2 hover:bg-[#04AA6D] duration-300  border-[#04AA6D]   hover:text-white"
+        >
+          Trial Period
+        </Link>
+        <Link
+          href="/pages/payment/medium"
+          className="w-[200px] h-[75px] flex justify-center items-center text-[#333232] rounded-xl border-2 hover:bg-[#008CBA] duration-300  border-[#008CBA]   hover:text-white"
+        >
+          Medium
+        </Link>
+        <Link
+          href="/pages/payment/premium"
+          className="w-[200px] h-[75px] flex justify-center items-center text-[#333232] rounded-xl border-2 hover:bg-[rgb(226,204,7)] duration-300  border-[rgb(226,204,7)]   hover:text-white"
+        >
+          Premium
+        </Link>
+      </div>
     </div>
   );
 };
