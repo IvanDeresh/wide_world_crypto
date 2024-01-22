@@ -28,10 +28,6 @@ const ProfilePage = () => {
     }
   }, [router, storedUserData]);
 
-  return (
-    <div className="h-screen justify-center flex items-center">
-      {user ? (
-=======
   if (session.data?.user) {
     router.replace(`/pages/profile/${session.data?.user?.name}`);
   }
