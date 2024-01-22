@@ -5,6 +5,15 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
 dotenv.config();
+const verifyToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    return decoded;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return null;
+  }
+};
 const generateAccessToken = (id, roles) => {
   const payload = {
     id,
@@ -59,6 +68,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "User does not exist" });
     } else {
       userWithoutPassword.email = user.email;
+      userWithoutPassword.roles = user.roles;
       userWithoutPassword.username = user.username;
     }
     const validPasword = bcrypt.compareSync(password, user.password);
@@ -79,7 +89,11 @@ export const login = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find();
-    res.json({ users, message: "All users" });
+    const usersAll = {
+      username: users.username,
+      password: users.password,
+    };
+    res.json({ usersAll, message: "All users" });
   } catch (e) {
     res.status(404).json({ message: "Server error" });
   }

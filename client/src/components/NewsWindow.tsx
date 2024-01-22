@@ -26,7 +26,7 @@ const NewsWindow = () => {
         <div key={news.id} className="">
           {news.id <= 3 && (
             <div className="border-2 h-[70px] w-[500px] p-[10px] rounded-2xl">
-              <Link href={`pages/news/${news.id}`} className="font-bold">
+              <Link href={`/pages/news/${news.id}`} className="font-bold">
                 {news.title}
               </Link>
               <div className="text-blue-200s">
