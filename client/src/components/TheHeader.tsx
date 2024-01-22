@@ -236,13 +236,16 @@ const TheHeader = () => {
             </Link>
           </div>
         ) : (
-          <Link
-            onClick={() => signIn()}
-            href="/pages/sign-in"
-            className="flex w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl max-xl:hidden"
-          >
-            Sign in
-          </Link>
+          <div>
+            {user ? null : (
+              <Link
+                href="/pages/sign-in"
+                className="flex w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl max-xl:hidden"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
         )}
         <div
           className="hidden max-xl:flex "
@@ -327,13 +330,15 @@ const TheHeader = () => {
               Upgrade trial
             </Link>
 
-            <Link
-              onClick={() => signIn()}
-              href="/pages/sign-in"
-              className="hidden max-xl:flex  w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl "
-            >
-              Sign in
-            </Link>
+            {session.data?.user || user ? null : (
+              <Link
+                onClick={() => signIn()}
+                href="/pages/sign-in"
+                className="hidden max-xl:flex  w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl "
+              >
+                Sign in
+              </Link>
+            )}
           </nav>
         )}
       </div>
