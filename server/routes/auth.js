@@ -2,6 +2,7 @@ import { Router } from "express";
 import { login, registration, getUsers } from "../controller/authController.js";
 import { check } from "express-validator";
 import { authMiddleware } from "../middleware/authMiddleware.js";
+
 import { roleMiddleware } from "../middleware/roleMiddleware.js";
 const router = new Router();
 router.post("/login", login);

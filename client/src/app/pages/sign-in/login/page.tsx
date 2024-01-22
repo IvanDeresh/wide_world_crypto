@@ -27,8 +27,9 @@ const Page = () => {
 
       if (token) {
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         alert(`${message} ${user.username}`);
-        router.push(`/pages/profile`);
+        router.replace(`/pages/profile`);
       } else {
         window.alert(message);
       }
@@ -36,7 +37,6 @@ const Page = () => {
       window.alert("Error login user" + " . " + error.response.data.message);
     }
   };
-
   return (
     <div className="h-screen justify-center flex items-center">
       <div className="flex justify-center items-center border-2 w-[500px] h-[600px] max-sm:w-[400px] max-sm:h-[500px] max rounded-3xl">

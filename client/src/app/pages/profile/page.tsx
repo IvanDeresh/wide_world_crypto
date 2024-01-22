@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 type User = {
   username: string;
@@ -11,6 +12,7 @@ type User = {
 
 const ProfilePage = () => {
   const router = useRouter();
+  const session = useSession();
   const storedUserData: string | null = localStorage.getItem("user");
   const [user, setUser] = useState<User | null>(null);
 
@@ -29,6 +31,13 @@ const ProfilePage = () => {
   return (
     <div className="h-screen justify-center flex items-center">
       {user ? (
+=======
+  if (session.data?.user) {
+    router.replace(`/pages/profile/${session.data?.user?.name}`);
+  }
+  return (
+    <div className="h-screen justify-center flex items-center">
+      {user && !session.data?.user ? (
         <div className="flex justify-center items-center border-2 w-[500px] h-[500px] max-sm:w-[400px] max-sm:h-[400px] max rounded-3xl">
           <div className="flex flex-col items-center justify-around h-[70%]">
             <div className="flex flex-col items-center">

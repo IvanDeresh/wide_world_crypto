@@ -6,11 +6,10 @@ const GoogleButton = () => {
   const callbackUrl = searchParams.get("callbackUrl") || "/pages/profile";
   return (
     <div
-      className="text-white cursor-pointer leading-6 flex flex-col justify-center items-center"
+      className=" bg-white text-black cursor-pointer w-[300px] h-[70px] rounded-3xl text-[22px] leading-6 flex flex-col justify-center items-center"
       onClick={() => signIn("google", { callbackUrl })}
     >
       Sign in with Google
-      <div className="w-[200px] h-2 rounded-full bg-green-500"></div>
     </div>
   );
 };

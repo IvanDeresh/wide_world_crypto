@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@/components/Button";
 import { isometric, cryptoimg, bgprimary } from "@/assets/img";
 import NewsWindow from "./NewsWindow";
 import MarketWindow from "./MarketWindow";
@@ -22,6 +21,7 @@ const TheHeader = () => {
   const [isSearchClicked, setIsSearchCliecked] = useState(false);
   const session = useSession();
   console.log(session);
+  const user = localStorage.getItem("user");
   const getFilteredItems = (query: string, items: any, isLoading: any) => {
     if (isLoading) {
       return <div>Loading...</div>;
@@ -187,12 +187,8 @@ const TheHeader = () => {
               </div>
             </div>
           )}
-          {session?.data && <Link href="/pages/profile"></Link>}
-          {session?.data ? (
-            <Link href="/pages/profile">Sign out</Link>
-          ) : (
-            <Link href="/pages/profile">Sign in</Link>
-          )}
+          {user && <Link href="/pages/profile">Profile</Link>}
+          {session?.data && <Link href="/pages/profile">Profile</Link>}
           <Link
             href="/pages/subscribe"
             onMouseEnter={() => {
@@ -221,7 +217,7 @@ const TheHeader = () => {
           )}
         </ul>
         {session?.data ? (
-          <div>
+          <div className="flex items-center justify-between gap-[20px]">
             <Link href={`/pages/profile/${session?.data?.user?.name}`}>
               <Image
                 src={
@@ -230,6 +226,9 @@ const TheHeader = () => {
                     : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
                 }
                 alt="logo"
+                width={30}
+                height={30}
+                className="rounded-full"
               />
             </Link>
             <Link onClick={() => signOut({ callbackUrl: "/" })} href="#">
@@ -237,13 +236,16 @@ const TheHeader = () => {
             </Link>
           </div>
         ) : (
-          <Link
-            onClick={() => signIn()}
-            href="/pages/sign-in"
-            className="flex w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl max-xl:hidden"
-          >
-            Sign in
-          </Link>
+          <div>
+            {user ? null : (
+              <Link
+                href="/pages/sign-in"
+                className="flex w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl max-xl:hidden"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
         )}
         <div
           className="hidden max-xl:flex "
@@ -279,7 +281,7 @@ const TheHeader = () => {
                   onMouseLeave={() => {
                     setIsMarketVisible(false);
                   }}
-                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#ffffff]"
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] max-sm:right-[180px] right-[300px] bg-[#ffffff]"
                 >
                   <MarketWindow />
                 </div>
@@ -302,12 +304,24 @@ const TheHeader = () => {
                   onMouseLeave={() => {
                     setIsBrokersVisible(false);
                   }}
-                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] right-[180px] bg-[#abbbd6]"
+                  className="absolute border-2 flex justify-center items-center rounded-3xl w-[300px] h-[350px] top-[0px] max-sm:right-[180px] right-[300px] bg-[#abbbd6]"
                 >
                   <BrokersWindow />
                 </div>
               )}
-              <Link href="/pages/news">News</Link>
+              <Link
+                href="/pages/news"
+                onMouseEnter={() => {
+                  setIsMarketVisible(false);
+                  setIsSearchCliecked(false);
+                  setIsBrokersVisible(false);
+                  setIsNewsVisible(false);
+                  setIsSubscriveVisible(false);
+                }}
+              >
+                News
+              </Link>
+              {user && <Link href="/pages/profile">Profile</Link>}
             </ul>
             <Link
               href="/pages/subscribe"
@@ -316,13 +330,15 @@ const TheHeader = () => {
               Upgrade trial
             </Link>
 
-            <Link
-              onClick={() => signIn()}
-              href="/pages/sign-in"
-              className="hidden max-xl:flex  w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl "
-            >
-              Sign in
-            </Link>
+            {session.data?.user || user ? null : (
+              <Link
+                onClick={() => signIn()}
+                href="/pages/sign-in"
+                className="hidden max-xl:flex  w-[130px] h-[40px] border-2 justify-center items-center text-[20px] rounded-3xl "
+              >
+                Sign in
+              </Link>
+            )}
           </nav>
         )}
       </div>

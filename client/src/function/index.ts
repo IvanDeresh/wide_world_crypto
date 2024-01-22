@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { CryptoCurrency, User, INews } from "@/types";
-
+import { useRouter } from "next/router";
 export function fetchCoins() {
   const [coins, setCoins] = useState<CryptoCurrency[]>([]);
   const [isLoading, setIsLoading] = useState(true);
