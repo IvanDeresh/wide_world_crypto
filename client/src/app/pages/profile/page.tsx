@@ -28,10 +28,6 @@ const ProfilePage = () => {
     }
   }, [router, storedUserData]);
 
-  return (
-    <div className="h-screen justify-center flex items-center">
-      {user ? (
-=======
   if (session.data?.user) {
     router.replace(`/pages/profile/${session.data?.user?.name}`);
   }
@@ -45,14 +41,28 @@ const ProfilePage = () => {
               <div className="w-[150px] h-[10px] bg-white rounded-full"></div>
             </div>
             {user ? (
-              <div className="h-[50%] flex flex-col justify-around items-center">
-                <div className="flex flex-col justify-around">
-                  <div>name: {user.username}</div>
-                  <div>email: {user.email}</div>
-                  <div>role: {user.roles}</div>
+              <div className="h-[80%] flex flex-col justify-around items-center">
+                <div className="flex flex-col justify-around items-center h-[100%]">
+                  <div className="w-[300px]  h-[50px] border-2 flex justify-around items-center rounded-2xl">
+                    <span>Name:</span> {user.username}
+                  </div>
+                  <div className="w-[300px]  h-[50px] border-2 flex justify-around items-center rounded-2xl">
+                    <span>Email:</span> {user.email}
+                  </div>
+                  <div className="w-[300px]  h-[50px] border-2 flex justify-around items-center rounded-2xl">
+                    <div>
+                      <span>Role:</span> {user.roles}
+                    </div>
+                    <button
+                      onClick={() => router.push("/pages/subscribe")}
+                      className="border-2 hover:bg-[#9caece] duration-300 w-[120px] h-[35px] rounded-3xl"
+                    >
+                      Upgrade role
+                    </button>
+                  </div>
                 </div>
                 <button
-                  className="w-[150px] h-[35px] rounded-3xl border-2"
+                  className="w-[150px] duration-300 hover:bg-[#9caece] h-[55px] rounded-3xl border-2"
                   onClick={() => {
                     localStorage.removeItem("user");
                     router.replace("/");
