@@ -29,7 +29,13 @@ const TheHeader = () => {
     if (!query) {
       return items;
     } else {
-      return items.filter((item: any) => item.id.includes(query));
+      return items.filter((item: any) => {
+        return (
+          (item.id && item.id.includes(query)) ||
+          item.name.includes(query) ||
+          item.symbol.includes(query)
+        );
+      });
     }
   };
   const [query, setQuery] = useState("");
@@ -216,26 +222,7 @@ const TheHeader = () => {
             </div>
           )}
         </ul>
-        {session?.data ? (
-          <div className="flex items-center justify-between gap-[20px]">
-            <Link href={`/pages/profile/${session?.data?.user?.name}`}>
-              <Image
-                src={
-                  session?.data?.user?.image
-                    ? session?.data?.user?.image
-                    : "https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"
-                }
-                alt="logo"
-                width={30}
-                height={30}
-                className="rounded-full"
-              />
-            </Link>
-            <Link onClick={() => signOut({ callbackUrl: "/" })} href="#">
-              Sign out
-            </Link>
-          </div>
-        ) : (
+        {session?.data ? null : (
           <div>
             {user ? null : (
               <Link
@@ -321,7 +308,13 @@ const TheHeader = () => {
               >
                 News
               </Link>
-              {user && <Link href="/pages/profile">Profile</Link>}
+              {user ? (
+                <Link href="/pages/profile">Profile</Link>
+              ) : session.data?.user ? (
+                <Link href={`/pages/profile/${session.data.user.name}`}>
+                  Profile
+                </Link>
+              ) : null}
             </ul>
             <Link
               href="/pages/subscribe"
