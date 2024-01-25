@@ -98,3 +98,19 @@ export const getUsers = async (req, res) => {
     res.status(404).json({ message: "Server error" });
   }
 };
+export const updateRole = async (req, res) => {
+  try {
+    const { role, username } = req.body;
+    const user = await User.findOne({ username });
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+    user.roles = role.toUpperCase();
+    await user.save();
+
+    return res.status(200).json({ message: `Succesfull changed on  ${role}` });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};

@@ -1,11 +1,17 @@
 import { Router } from "express";
-import { login, registration, getUsers } from "../controller/authController.js";
+import {
+  login,
+  registration,
+  getUsers,
+  updateRole,
+} from "../controller/authController.js";
 import { check } from "express-validator";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 import { roleMiddleware } from "../middleware/roleMiddleware.js";
 const router = new Router();
 router.post("/login", login);
+router.put("/update", updateRole);
 router.post(
   "/registration",
   [

@@ -1,6 +1,6 @@
 "use client";
 import { fetchNews } from "@/function";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Pagination,
@@ -13,7 +13,13 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CloseIcon from "@mui/icons-material/Close";
 import AddNews from "@/components/AddNews";
-
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+type User = {
+  username: string;
+  email: string;
+  roles: string;
+};
 const Page = () => {
   const news = fetchNews();
   const [query, setQuery] = useState(0);
@@ -22,21 +28,39 @@ const Page = () => {
   const totalPages = Math.ceil(news.length / itemsPerPage);
   const [page, setPage] = useState(1);
 
+  const router = useRouter();
+  const session = useSession();
+  const storedUserData: string | null = localStorage.getItem("user");
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    if (storedUserData) {
+      try {
+        const userData: User = JSON.parse(storedUserData);
+        setUser(userData);
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    } else {
+    }
+  }, [router, storedUserData]);
+
   const handlePageChange = (event: any, value: any) => {
     setPage(value);
     setQuery((value - 1) * itemsPerPage);
   };
-
   return (
     <div className="h-full h-min-screen max-container relative my-[200px] flex text-[20px] flex-col justify-center items-center">
       <div>
         <div className="text-[40px] mb-[100px] font-montserrat">News</div>
-        <button
-          onClick={() => setIsClicked(!isClicked)}
-          className="w-[100px] hover:shadow-3xl max-xl:w-[50px] max-xl:h-[50px] max-xl:text-[30px] hover:shadow-white hover:translate-y-[-2px] bg-[#abbbd6] cursor-pointer h-[100px] absolute text-[60px] shadow-2xl border-2 rounded-2xl top-[-20px] right-[15%] flex justify-center items-center max-xl:right-[5%]"
-        >
-          +
-        </button>
+        {user && user.roles == "ADMIN" && (
+          <button
+            onClick={() => setIsClicked(!isClicked)}
+            className="w-[100px] hover:shadow-3xl max-xl:w-[50px] max-xl:h-[50px] max-xl:text-[30px] hover:shadow-white hover:translate-y-[-2px] bg-[#abbbd6] cursor-pointer h-[100px] absolute text-[60px] shadow-2xl border-2 rounded-2xl top-[-20px] right-[15%] flex justify-center items-center max-xl:right-[5%]"
+          >
+            +
+          </button>
+        )}
         <div className="mb-[50px] ml-[50px]">
           <Stack spacing={2}>
             {!!totalPages && (

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const page = () => {
   return (
-    <div className="h-screen p-5 max-container justify-start flex-col flex items-center gap-[100px] mt-[200px]">
+    <div className="h-screen mb-[200px] p-5 max-container justify-start flex-col flex items-center gap-[100px] mt-[200px]">
       <div className="text-[35px] w-full justify-center max-sm:border-t-2 max-sm:border-b-2 rounded-2xl flex font-montserrat ">
         Our special subscriptions
       </div>
