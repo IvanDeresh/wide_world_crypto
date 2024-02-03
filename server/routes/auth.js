@@ -4,14 +4,19 @@ import {
   registration,
   getUsers,
   updateRole,
+  logout,
+  refresh,
 } from "../controller/authController.js";
 import { check } from "express-validator";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import {
+  authMiddleware,
+  accessTokenMiddleware,
+} from "../middleware/authMiddleware.js";
 
 import { roleMiddleware } from "../middleware/roleMiddleware.js";
 const router = new Router();
 router.post("/login", login);
-router.put("/update", updateRole);
+router.post("/logout", logout);
 router.post(
   "/registration",
   [
@@ -23,5 +28,7 @@ router.post(
   ],
   registration
 );
-router.get("/users", getUsers);
+router.put("/update", updateRole);
+router.get("/refresh", refresh);
+router.get("/users", accessTokenMiddleware, getUsers);
 export default router;

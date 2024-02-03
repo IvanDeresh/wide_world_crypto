@@ -27,7 +27,7 @@ const page = () => {
         );
         const { message, user } = response.data;
 
-        window.alert(message + " " + user.username);
+        window.alert(message + " " + user.user.username);
       } else {
         window.alert("Fields cannot be empty");
       }

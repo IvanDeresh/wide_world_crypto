@@ -27,7 +27,7 @@ const Page = () => {
 
       if (token) {
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user.user));
         alert(`${message} ${user.username}`);
         router.replace(`/pages/profile`);
       } else {
