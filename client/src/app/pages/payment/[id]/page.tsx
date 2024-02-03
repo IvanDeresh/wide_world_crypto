@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import type { Props } from "@/types";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 type User = {
   username: string;
   email: string;
@@ -13,7 +14,7 @@ const page = ({ params: { id } }: Props) => {
   const router = useRouter();
   const storedUserData: string | null = localStorage.getItem("user");
   const [user, setUser] = useState<User | null>(null);
-
+  const session = useSession();
   useEffect(() => {
     if (storedUserData) {
       try {
@@ -25,10 +26,11 @@ const page = ({ params: { id } }: Props) => {
     } else {
     }
   }, [router, storedUserData]);
+  const userData = user ? user.email : session.data?.user?.email;
   const updateRole = async () => {
     try {
       const response = await axios.put("http://localhost:3003/auth/update", {
-        username: user?.username,
+        email: userData,
         role: id,
       });
       const { message } = response.data;
@@ -43,6 +45,7 @@ const page = ({ params: { id } }: Props) => {
       window.alert("Error update role" + " . " + error.response.data.message);
     }
   };
+
   const [money, setMoney] = useState("");
   return (
     <div className="h-screen  flex max-container justify-center items-center">

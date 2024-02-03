@@ -70,7 +70,7 @@ const Hero = () => {
           className="rounded-2xl max-md:w-[80vw]"
         />
       </div>
-      <div className="mt-[200px] border-b-[4px] border-t-[4px] p-[20px]">
+      <div className="mt-[200px] overflow-x-hidden border-b-[4px] border-t-[4px] p-[20px]">
         <div className="flex gap-10">
           {isLoading ? (
             <div className="w-[200px] h-[70px] justify-center flex items-center rounded-2xl ml-[50%] bg-[#21296e]">

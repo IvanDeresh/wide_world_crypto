@@ -20,8 +20,10 @@ const TheHeader = () => {
   const [isSubscriveVisible, setIsSubscriveVisible] = useState(false);
   const [isSearchClicked, setIsSearchCliecked] = useState(false);
   const session = useSession();
-  console.log(session);
-  const user = localStorage.getItem("user");
+
+  const user =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
+
   const getFilteredItems = (query: string, items: any, isLoading: any) => {
     if (isLoading) {
       return <div>Loading...</div>;

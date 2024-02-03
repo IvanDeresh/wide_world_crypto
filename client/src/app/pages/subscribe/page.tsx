@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { gold, medium, tryperiod } from "@/assets/img";
 import Link from "next/link";
-
 const page = () => {
   return (
     <div className="h-screen mb-[200px] p-5 max-container justify-start flex-col flex items-center gap-[100px] mt-[200px]">
