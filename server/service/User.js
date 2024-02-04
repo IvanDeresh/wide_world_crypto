@@ -3,6 +3,7 @@ import Token from "./Token.js";
 import bcrypt from "bcrypt";
 import Roles from "../model/Roles.js";
 import UserDto from "../dtos/userDtos.js";
+import { Error } from "mongoose";
 class UserService {
   async registration(email, password, username) {
     try {
@@ -37,11 +38,11 @@ class UserService {
   async login(username, password) {
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({ message: "User does not exist" });
+      throw new Error("User not found");
     }
     const validPasword = bcrypt.compareSync(password, user.password);
     if (!validPasword) {
-      return res.status(401).json({ message: "Password error" });
+      throw new Error("Invalid password");
     }
     const userDto = new UserDto(user);
     const tokens = Token.generateToken({ ...userDto });

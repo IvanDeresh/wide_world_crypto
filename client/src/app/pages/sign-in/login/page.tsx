@@ -3,14 +3,12 @@ import Link from "next/link";
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Alert from "@mui/material/Alert";
 const Page = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -23,12 +21,12 @@ const Page = () => {
         "http://localhost:3003/auth/login",
         formData
       );
-      const { token, message, user } = response.data;
+      const { message, user } = response.data;
 
-      if (token) {
-        localStorage.setItem("token", token);
+      if (user.tokens) {
+        localStorage.setItem("token", user.tokens.accessToken);
         localStorage.setItem("user", JSON.stringify(user.user));
-        alert(`${message} ${user.username}`);
+        alert(`${message} ${user.user.username}`);
         router.replace(`/pages/profile`);
       } else {
         window.alert(message);
@@ -62,7 +60,7 @@ const Page = () => {
             onChange={handleChange}
           />
           <button
-            onClick={handleSubmit}
+            onClick={() => handleSubmit()}
             className="w-[150px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
           >
             Confirm

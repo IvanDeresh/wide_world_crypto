@@ -37,7 +37,7 @@ export const registration = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const userData = await UserService.login(password, username);
+    const userData = await UserService.login(username, password);
     res.cookie("refreshToken", userData.tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
       httpOnly: true,
