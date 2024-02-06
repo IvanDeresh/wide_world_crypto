@@ -3,14 +3,12 @@ import Link from "next/link";
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Alert from "@mui/material/Alert";
 const Page = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -23,18 +21,18 @@ const Page = () => {
         "http://localhost:3003/auth/login",
         formData
       );
-      const { token, message, user } = response.data;
+      const { message, data } = response.data;
 
-      if (token) {
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        alert(`${message} ${user.username}`);
+      if (data.tokens) {
+        localStorage.setItem("token", data.tokens.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        alert(`${message} ${data.user.username}`);
         router.replace(`/pages/profile`);
       } else {
         window.alert(message);
       }
     } catch (error: any) {
-      window.alert("Error login user" + " . " + error.response.data.message);
+      window.alert("Error login user" + " . " + error);
     }
   };
   return (
@@ -62,7 +60,7 @@ const Page = () => {
             onChange={handleChange}
           />
           <button
-            onClick={handleSubmit}
+            onClick={() => handleSubmit()}
             className="w-[150px] h-[50px] border-2 rounded-3xl font-montserrat text-[20px]"
           >
             Confirm

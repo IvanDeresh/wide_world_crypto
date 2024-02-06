@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   title: "Wide world",
   description: "Created by Ivan Deresh",
 };
-
 export default function RootLayout({
   children,
 }: {

@@ -42,3 +42,14 @@ export type User = {
   email?: string;
   password?: string;
 };
+export interface IUser {
+  id: string;
+  email: string;
+  roles: string;
+  username: string;
+}
+export interface AuthResponse {
+  accessToken: string;
+  refreshToken: string;
+  user: IUser;
+}

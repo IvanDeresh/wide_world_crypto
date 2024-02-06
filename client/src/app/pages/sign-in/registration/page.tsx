@@ -1,9 +1,10 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent } from "react";
-
 const page = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -26,8 +27,10 @@ const page = () => {
           formData
         );
         const { message, user } = response.data;
-
-        window.alert(message + " " + user.username);
+        localStorage.setItem("user", JSON.stringify(user.user));
+        localStorage.setItem("token", user.tokens.accessToken);
+        router.replace("/pages/profile");
+        window.alert(message + " " + user.user.username);
       } else {
         window.alert("Fields cannot be empty");
       }
