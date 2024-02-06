@@ -85,7 +85,7 @@ const page = () => {
 
           <div className="flex justify-around w-[100%]">
             <Link
-              href="/"
+              href="/pages/sign-in"
               className="text-[25px] underline underline-offset-[8px] decoration-[4px]"
             >
               Google

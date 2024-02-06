@@ -160,7 +160,7 @@ const TheHeader = () => {
           {isBrokersVisible && (
             <div
               onMouseLeave={() => setIsBrokersVisible(false)}
-              className="w-[600px] z-50 text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[280px] bg-white h-[300px]"
+              className="w-[600px] z-50 text-blue-400 font-montserrat  flex rounded-[20px] absolute top-[80px] left-[28%] bg-white h-[300px]"
             >
               <Image
                 className="rounded-tl-[20px] rounded-bl-[20px]"
@@ -188,7 +188,7 @@ const TheHeader = () => {
               onMouseLeave={() => {
                 setIsNewsVisible(false);
               }}
-              className="absolute z-50 top-[80px] left-[400px] bg-white w-[600px] h-[300px] border-2 rounded-[20px]"
+              className="absolute z-50 top-[80px] left-[35%] bg-white w-[600px] h-[300px] border-2 rounded-[20px]"
             >
               <div className="absolute flex p-[30px] items-center">
                 <NewsWindow />
@@ -213,7 +213,7 @@ const TheHeader = () => {
           {isSubscriveVisible && (
             <div
               onMouseLeave={() => setIsSubscriveVisible(false)}
-              className="absolute z-50 flex flex-col items-center justify-center bg-white w-[300px] h-[400px] rounded-[20px] top-[100px] right-[160px]"
+              className="absolute z-50 flex flex-col items-center justify-center bg-white w-[300px] h-[400px] rounded-[20px] top-[100px] right-[5%]"
             >
               <div className="text-black text font-bold text-[25px]">
                 Subscriptions

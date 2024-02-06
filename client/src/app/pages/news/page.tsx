@@ -2,15 +2,7 @@
 import { fetchNews } from "@/function";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  Pagination,
-  PaginationItem,
-  TextField,
-  Stack,
-  Link,
-} from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { Pagination, PaginationItem, Stack, Link } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import AddNews from "@/components/AddNews";
 import { useRouter } from "next/navigation";
@@ -29,7 +21,6 @@ const Page = () => {
   const [page, setPage] = useState(1);
 
   const router = useRouter();
-  const session = useSession();
   const storedUserData: string | null = localStorage.getItem("user");
   const [user, setUser] = useState<User>();
 
@@ -52,7 +43,9 @@ const Page = () => {
   return (
     <div className="h-full h-min-screen max-container relative my-[200px] flex text-[20px] flex-col justify-center items-center">
       <div>
-        <div className="text-[40px] mb-[100px] font-montserrat">News</div>
+        <div className="text-[40px] mb-[100px] flex justify-center font-montserrat">
+          News
+        </div>
         {user && user.roles == "ADMIN" && (
           <button
             onClick={() => setIsClicked(!isClicked)}
@@ -98,17 +91,17 @@ const Page = () => {
           </button>
         </div>
       ) : null}
-      <div className="w-full flex flex-col justify-center items-center ">
+      <div className="w-full flexflex-col justify-center items-center ">
         {news.map((newsItem) => (
           <div key={newsItem.id}>
             {newsItem.id >= query && newsItem.id <= query + itemsPerPage ? (
               <div
-                className="w-[100%] h-[150px] justify-center flex items-center"
+                className="w-[100%]  h-[150px] justify-center flex items-center"
                 key={newsItem.id}
               >
                 <Link
                   href={`/pages/news/${newsItem.id}`}
-                  className="w-[70vw] items-center h-[120px] gap-[10px] flex justify-around rounded-2xl border-2"
+                  className="w-[70vw] items-center  p-[10px]  h-[120px] gap-[10px] flex justify-around rounded-2xl border-2"
                 >
                   <Image
                     src={newsItem.image}

@@ -35,7 +35,7 @@ const page = () => {
         <tbody>
           <tr>
             <td className="border-b-[6px] border-r-[6px] w-[300px] h-[100px]">
-              Рядок, Колонка 1
+              Indicators +5
             </td>
             <td className="border-[6px] text-[25px] pl-[10%]">YES</td>
             <td className="border-[6px] text-[25px] pl-[10%]">YES</td>
@@ -45,7 +45,7 @@ const page = () => {
           </tr>
           <tr>
             <td className="border-b-[6px] border-r-[6px] w-[300px] h-[100px]">
-              Рядок, Колонка 2
+              more information
             </td>
             <td className="border-[6px] w-[300px] h-[100px] text-[25px] pl-[10%]">
               YES
@@ -59,7 +59,7 @@ const page = () => {
           </tr>
           <tr>
             <td className="border-b-[6px]  border-r-[6px] w-[300px] h-[100px]">
-              Рядок, Колонка 3
+              News add
             </td>
             <td className="border-[6px] text-[25px] pl-[10%]">NO</td>
             <td className="border-[6px] text-[25px] pl-[10%]">YES</td>
@@ -68,9 +68,7 @@ const page = () => {
             </td>
           </tr>
           <tr className="text-green-300">
-            <td className=" border-r-[6px] text-white w-[300px] h-[100px]">
-              Рядок, Колонка 4
-            </td>
+            <td className=" border-r-[6px] text-white w-[300px] h-[100px]"></td>
             <td className="border-r-[6px] text-[25px] pl-[10%]">1$</td>
             <td className="border-r-[6px] text-[25px] pl-[10%]">20$</td>
             <td className="border-l-[6px] border-t-[6px] text-[25px] pl-[10%]">
