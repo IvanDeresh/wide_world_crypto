@@ -15,7 +15,16 @@ const ProfilePage = () => {
   const session = useSession();
   const storedUserData: string | null = localStorage.getItem("user");
   const [user, setUser] = useState<User | null>(null);
-
+  const logout = async () => {
+    try {
+      await axios.post("http://localhost:3003/auth/logout");
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      router.push("/");
+    } catch (e) {
+      console.log("Error:", e);
+    }
+  };
   useEffect(() => {
     if (storedUserData) {
       try {
@@ -63,10 +72,7 @@ const ProfilePage = () => {
                 </div>
                 <button
                   className="w-[150px] duration-300 hover:bg-[#9caece] h-[55px] rounded-3xl border-2"
-                  onClick={() => {
-                    localStorage.removeItem("user");
-                    router.replace("/");
-                  }}
+                  onClick={logout}
                 >
                   Log out
                 </button>

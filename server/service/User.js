@@ -5,7 +5,7 @@ import Roles from "../model/Roles.js";
 import UserDto from "../dtos/userDtos.js";
 import { Error } from "mongoose";
 class UserService {
-  async registration(email, password, username) {
+  async registration(username, password, email) {
     try {
       const candidate = await User.findOne({ email });
       if (candidate) {

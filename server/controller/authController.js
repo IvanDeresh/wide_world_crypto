@@ -16,9 +16,9 @@ export const registration = async (req, res) => {
         .json({ message: "Registration error", errors: errors.array() });
     }
 
-    const { username, password, email } = req.body;
+    const { username, email, password } = req.body;
 
-    const userData = await UserService.registration(email, password, username);
+    const userData = await UserService.registration(username, password, email);
 
     res.cookie("refreshToken", userData.tokens.refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
@@ -27,7 +27,7 @@ export const registration = async (req, res) => {
 
     return res.status(200).json({
       message: "Registration successful",
-      user: userData,
+      data: userData,
     });
   } catch (e) {
     console.log(e);
@@ -44,7 +44,7 @@ export const login = async (req, res) => {
     });
     return res.json({
       message: "login successful",
-      user: userData,
+      data: userData,
     });
   } catch (e) {
     console.log(e);
@@ -85,7 +85,7 @@ export const refresh = async (req, res) => {
     const { refreshToken } = req.cookies;
     const userData = await UserService.refresh(refreshToken);
     res.cookie("refreshToken", userData.tokens.refreshToken, {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: true,
     });
     return res.json({

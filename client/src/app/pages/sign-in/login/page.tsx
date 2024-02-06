@@ -21,18 +21,18 @@ const Page = () => {
         "http://localhost:3003/auth/login",
         formData
       );
-      const { message, user } = response.data;
+      const { message, data } = response.data;
 
-      if (user.tokens) {
-        localStorage.setItem("token", user.tokens.accessToken);
-        localStorage.setItem("user", JSON.stringify(user.user));
-        alert(`${message} ${user.user.username}`);
+      if (data.tokens) {
+        localStorage.setItem("token", data.tokens.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        alert(`${message} ${data.user.username}`);
         router.replace(`/pages/profile`);
       } else {
         window.alert(message);
       }
     } catch (error: any) {
-      window.alert("Error login user" + " . " + error.response.data.message);
+      window.alert("Error login user" + " . " + error);
     }
   };
   return (
