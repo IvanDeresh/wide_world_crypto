@@ -65,8 +65,8 @@ export const getUsers = async (req, res) => {
 };
 export const updateRole = async (req, res) => {
   try {
-    const { role, username } = req.body;
-    const user = await User.findOne({ username });
+    const { role, email } = req.body;
+    const user = await User.findOne({ email });
     if (!user) {
       res.status(404).json({ message: "User not found" });
     }

@@ -15,7 +15,7 @@ import { Line } from "react-chartjs-2";
 
 const Chart = ({ id }: { id: string }) => {
   const [dataCharts, setDataCharts] = useState([]);
-  const [period, setPeriod] = useState("1w");
+  const [period, setPeriod] = useState("1m");
 
   const fetchData = useCallback(async () => {
     try {
@@ -74,7 +74,16 @@ const Chart = ({ id }: { id: string }) => {
 
   const datasets = [
     {
-      label: id,
+      label: `${id.toUpperCase()} | ${
+        period == "1w"
+          ? "week"
+          : period == "1m"
+          ? "month"
+          : period == "1y"
+          ? "year"
+          : "All time"
+      }`,
+
       data: dataCharts.map((item) => item),
       borderColor: "#5c78aa",
       backgroundColor: "#5c78aa",
@@ -88,15 +97,9 @@ const Chart = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="w-[1000px] border-2 p-[50px] rounded-[30px] flex flex-col gap-[20px] max-xl:w-[400px]">
+    <div className="w-[1000px] border-2 p-[50px] rounded-[30px] flex flex-col gap-[20px] max-xl:w-[450px]">
       <Line options={options} data={data} />
       <div className="w-full flex gap-[10px] justify-around flex-wrap">
-        <button
-          className="w-[100px] border-2 rounded-2xl"
-          onClick={() => setPeriod("1d")}
-        >
-          1 day
-        </button>
         <button
           className="w-[100px] border-2 rounded-2xl"
           onClick={() => setPeriod("1w")}
